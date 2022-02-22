@@ -1,0 +1,23 @@
+!
+!    @(#)XApplication	1.1 99/06/25
+!    XApplication FileDialog resources and Dialog default font
+!
+!#################################################################
+!#
+!#  Awt File Selection dialog resources
+!#
+!#################################################################
+*enableThinThickness:                   True
+*XmFileSelectionBox.fileFilterStyle:    XmFILTER_HIDDEN_FILES
+*XmFileSelectionBox.pathMode:           XmPATH_MODE_RELATIVE
+*XmFileSelectionBox.resizePolicy:       XmRESIZE_GROW
+
+*XmFileSelectionBox.filterLabelString: Filter
+*XmFileSelectionBox.dirListLabelString: Ordner
+*XmFileSelectionBox.dirTextLabelString: Geben Sie den Pfad oder den Ordnernamen ein:
+*XmFileSelectionBox.fileListLabelString: Dateien
+*XmFileSelectionBox.okLabelString: OK
+*XmFileSelectionBox.applyLabelString: Aktualisieren
+*XmFileSelectionBox.cancelLabelString: Abbruch
+*XmFileSelectionBox.selectionLabelString: Geben Sie einen Dateinamen ein:
+

@@ -1,0 +1,12 @@
+F ACTION.C                          	action.c
+F ACTION.O                          	action.o
+F CLIENT.C                          	client.c
+F CLIENT.H                          	client.h
+F CLIENT.O                          	client.o
+F MAKEFILE                          	Makefile
+F MAKEFILE.TMPL                     	Makefile.tmpl
+F SAMPLE                            	sample
+F SENDCOM.C                         	sendcom.c
+F SENDCOM.O                         	sendcom.o
+F VECTOR.C                          	vector.c
+F VECTOR.O                          	vector.o

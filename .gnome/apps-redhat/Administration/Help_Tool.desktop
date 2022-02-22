@@ -1,0 +1,9 @@
+
+[Desktop Entry]
+Name[en_US.ISO8859-1]=Help Tool
+Comment[en_US.ISO8859-1]=Finds various sorts of documentation
+Exec=helptool & 
+Icon=/usr/share/icons/mini/mini-question.xpm
+Terminal=false
+MultipleArgs=false
+Type=Application

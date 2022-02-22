@@ -1,0 +1,21 @@
+# KDE Config File
+[kpanelButtons]
+controldelta=250
+Buttons=system,windowlist,$$KDEAPPS/Home.kdelnk,$$KDEAPPS/KControl.kdelnk,$$KDEAPPS/Kfind.kdelnk,$$KDEAPPS/Utilities,$$KDEAPPS/Help.kdelnk,$$KDEAPPS/Utilities/konsole.kdelnk,$$KDEAPPS/Applications/kwrite.kdelnk,$$KDEAPPS/Internet/KMail.kdelnk,$$KDEAPPS/Multimedia/kscd.kdelnk,$$KDEAPPS/Multimedia/KMix.kdelnk,$$KDEAPPS/Internet/netscape.kdelnk,
+ButtonDelta=0,0,0,0,0,0,0,
+control=6
+[kpanel]
+AutoHideTaskbarDelay=6000
+AutoHideTaskbarSpeed=4
+TaskbarPosition=hidden
+FoldersFirst=on
+MenuToolTips=-1
+HideShowAnimation=50
+AutoHideDelay=6000
+ClockAmPm=on
+AutoHideSpeed=4
+ClockBeats=off
+[kdisknav]
+RecentFiles=
+RecentFolders=
+Terminal=konsole

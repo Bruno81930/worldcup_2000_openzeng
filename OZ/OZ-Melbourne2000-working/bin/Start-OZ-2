@@ -1,0 +1,53 @@
+#!/bin/sh
+#
+# Start Script For Open Zeng
+
+#  1: savior
+#  2: dajare
+#! 3: jaist
+#  4: NIT-Stones
+#  5: gullwing
+#  6: gullwing
+#  7: dajare
+#  8: Zeng-SMF
+#  9: Zeng-SMF
+# 10: Sfidante
+# 11: mitsuhide
+
+PATH=${HOME}/jdk/bin:${PATH} && export PATH
+
+
+sleeptime=2000000
+
+host="localhost"
+port="6000"
+teamname="OZ"
+
+while [ $# -gt 0 ]
+do
+    case $1 in
+    -h*)
+	host=$2
+	shift 1
+	;;
+    -p*)
+	port=$2
+	shift 1
+	;;
+    -t*)
+	teamname=$2
+	shift 1
+	;;
+    esac
+    shift 1
+done
+
+#	OZ Number 3
+echo "OZ Number 3: JaistCSS"
+CLASSPATH=. && export CLASSPATH
+JITCOMPILER=jit && export JITCOMPILER
+THREADS_FLAG=native && export THREADS_FLAG
+(cd /export/home3/robofun/soccer/JaistCSS/oz && \
+	java SoccerAgent -h $host -t $teamname) 1>/dev/null 2>&1 &
+
+./usleep $sleeptime

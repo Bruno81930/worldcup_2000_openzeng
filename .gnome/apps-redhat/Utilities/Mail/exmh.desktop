@@ -1,0 +1,8 @@
+
+[Desktop Entry]
+Name[en_US.ISO8859-1]=exmh
+Comment[en_US.ISO8859-1]=MH Mail Front End
+Exec=exmh & 
+Terminal=false
+MultipleArgs=false
+Type=Application

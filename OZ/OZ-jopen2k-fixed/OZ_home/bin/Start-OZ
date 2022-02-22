@@ -1,0 +1,128 @@
+#!/bin/sh
+#
+# Start Script For Open Zeng
+
+sleeptime=500000
+
+host="localhost"
+port="6000"
+teamname="OZ"
+version="5.25"
+
+while [ $# -gt 0 ]
+do
+    case $1 in
+    -h*)
+	host=$2
+	shift 1
+	;;
+    -p*)
+	port=$2
+	shift 1
+	;;
+    -t*)
+	teamname=$2
+	shift 1
+	;;
+    esac
+    shift 1
+done
+
+#	OZ Number 1
+#	Goal Keeper 
+./Zeng-GK -h $host -t $teamname -p $port 1>/dev/null 2>&1
+echo "Zeng-GK"
+./usleep $sleeptime
+
+###
+### DF
+###
+
+#	OZ Number 2 - 3 - 4
+#	Defender
+./Zeng00-TM -h $host -t $teamname -p $port -r 2 1>/dev/null 2>&1
+echo "Zeng-DF"
+./usleep $sleeptime
+./Zeng00-TM -h $host -t $teamname -p $port -r 3 1>/dev/null 2>&1
+echo "Zeng-DF"
+./usleep $sleeptime
+./Zeng00-TM -h $host -t $teamname -p $port -r 4 1>/dev/null 2>&1
+echo "Zeng-DF"
+./usleep $sleeptime
+
+
+###
+### MF
+#####	OZ Number 5 - 6 
+./gullwing $host $port $teamname 1>/dev/null 2>&1 &
+./usleep $sleeptime
+echo "gullwing-Wing"
+
+./gullwing $host $port $teamname 1>/dev/null 2>&1 &
+./usleep $sleeptime
+echo "gullwing-Wing"
+
+##	OZ Number 7
+#	DF KU Sakura
+./sample $teamname f $host 1>/dev/null 2>&1 &
+echo "KU_Sakura-DH"
+./usleep $sleeptime
+
+
+##	Defensive harf
+#./Zeng00-TM -h $host -t $teamname -p $port -r 5 1>/dev/null 2>&1
+#echo "Zeng-DH"
+#./usleep $sleeptime
+#./Zeng00-TM -h $host -t $teamname -p $port -r 6 1>/dev/null 2>&1
+#echo "Zeng-DH"
+#./usleep $sleeptime
+
+#	offensive harf 8
+#./start.yukichi ./yukichi $host $teamname 1>/dev/null 2>&1
+#echo "11monkeys-OH"
+#./usleep $sleeptime
+
+#./Zeng00-TM -h $host -t $teamname -p $port -r 6 1>/dev/null 2>&1
+#echo "Zeng-DH"
+#./usleep $sleeptime
+###
+###	FW
+###
+
+# #	8
+ ./Zeng00-TM -h $host -t $teamname -p $port -r 7 1>/dev/null 2>&1
+ echo "Zeng-SMF"
+ ./usleep $sleeptime
+#	9
+ ./Zeng00-TM -h $host -t $teamname -p $port -r 8 1>/dev/null 2>&1
+ echo "Zeng-SMF"
+ ./usleep $sleeptime
+
+#OZ  Number 9
+#Left WING
+#./gullwing $host $port $teamname 1>/dev/null 2>&1 &
+#echo "gullwing-Wing"
+#./usleep $sleeptime
+
+#./Zeng00-TM -h $host -t $teamname -p $port -r 8 1>/dev/null 2>&1
+#echo "Zeng-DH"
+#./usleep $sleeptime
+
+#	OZ Number 10
+#	Right WING
+./sample $teamname f $host 1>/dev/null 2>&1 &
+echo "KU_Sakura-DH"
+./usleep $sleeptime
+
+#	OZ Number 11
+#	STRIKER
+./mitsuhide $teamname nongoalie $host $port $version 1>/dev/null 2>&1 &
+echo "YowAI-Striker"
+./usleep $sleeptime
+#./mitsuhide $teamname nongoalie $host $port $version 1>/dev/null 2>&1 &
+#echo "YowAI-Striker"
+#./usleep $sleeptime
+
+#11 gullwing OH
+#./gullwing $host $port $teamname 1>/dev/null 2>&1 &
+#echo "gullwing-Wing"

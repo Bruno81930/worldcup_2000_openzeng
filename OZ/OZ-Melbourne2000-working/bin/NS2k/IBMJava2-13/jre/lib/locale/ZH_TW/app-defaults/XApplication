@@ -1,0 +1,22 @@
+!
+!    @(#)XApplication	1.1 99/06/25
+!    XApplication FileDialog resources and Dialog default font
+!
+!#################################################################
+!#
+!#  Awt File Selection dialog resources
+!#
+!#################################################################
+*enableThinThickness:                   True
+*XmFileSelectionBox.fileFilterStyle:    XmFILTER_HIDDEN_FILES
+*XmFileSelectionBox.pathMode:           XmPATH_MODE_RELATIVE
+*XmFileSelectionBox.resizePolicy:       XmRESIZE_GROW
+
+*XmFileSelectionBox.filterLabelString: 過濾程式
+*XmFileSelectionBox.dirListLabelString: 資料夾
+*XmFileSelectionBox.dirTextLabelString: 輸入路徑或資料夾名稱：
+*XmFileSelectionBox.fileListLabelString: 檔案
+*XmFileSelectionBox.okLabelString: 確定
+*XmFileSelectionBox.applyLabelString: 更新
+*XmFileSelectionBox.cancelLabelString: 取消
+*XmFileSelectionBox.selectionLabelString: 輸入檔案名稱：

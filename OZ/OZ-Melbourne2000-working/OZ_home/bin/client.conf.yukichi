@@ -1,0 +1,46 @@
+# Configurations for client program
+# Lines that start '#' are comment lines.
+
+##########################################
+
+#default 1
+#half : 2
+
+formation         :            test 
+
+# defaults 0 0 0 
+my_score 			: 0
+their_score			: 0
+reconnect			: 0
+
+# default 1
+senses_per_cycle                : 2
+
+hardest_kick_shot_distance      : 18
+moderate_kick_shot_distance     : 16
+cycles_to_kick_buffer           : 3
+breakaway_shot_distance         : 17
+
+cycles_to_kick                  : 3
+dribble_sphere_rad              : 4
+
+##########################################
+
+#default 20, 2
+max_int_lookahead : 50
+intercept_step    : 5
+
+ball_invalidation_dist_err : 100.0
+
+ball_conf_decay                 : 0.95
+
+mark_persist_time : 6000
+
+team_name			: OZ
+
+goalie_number : 0
+
+version				: 5.24
+
+# default localhost
+host				: localhost

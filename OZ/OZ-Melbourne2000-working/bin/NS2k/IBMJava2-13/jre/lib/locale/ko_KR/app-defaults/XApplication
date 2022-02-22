@@ -1,0 +1,22 @@
+!
+!    @(#)XApplication	1.1 99/06/25
+!    XApplication FileDialog resources and Dialog default font
+!
+!#################################################################
+!#
+!#  Awt File Selection dialog resources
+!#
+!#################################################################
+*enableThinThickness:                   True
+*XmFileSelectionBox.fileFilterStyle:    XmFILTER_HIDDEN_FILES
+*XmFileSelectionBox.pathMode:           XmPATH_MODE_RELATIVE
+*XmFileSelectionBox.resizePolicy:       XmRESIZE_GROW
+
+*XmFileSelectionBox.filterLabelString: 필터
+*XmFileSelectionBox.dirListLabelString: 폴더
+*XmFileSelectionBox.dirTextLabelString: 경로 또는 폴더명 입력:
+*XmFileSelectionBox.fileListLabelString: 파일
+*XmFileSelectionBox.okLabelString: 확인
+*XmFileSelectionBox.applyLabelString: 갱신
+*XmFileSelectionBox.cancelLabelString: 취소
+*XmFileSelectionBox.selectionLabelString: 파일명 입력:

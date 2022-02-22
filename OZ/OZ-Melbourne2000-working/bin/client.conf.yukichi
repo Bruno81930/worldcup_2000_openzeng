@@ -1,0 +1,88 @@
+# Configurations for client program
+# Lines that start '#' are comment lines.
+
+##########################################
+
+#default 2
+#half : 2
+
+#default 4-4-2
+formation         :             test
+#formation         :             3-4-3
+#formation         :             3-5-2
+#formation	  :         	4-4-2B
+#formation	  :         	4-4-2
+formation_when_winning :         4-4-2B
+
+# defaults 0 0 0 
+my_score 			: 0
+their_score			: 0
+reconnect			: 0
+
+# default 1
+senses_per_cycle                : 2
+
+hardest_kick_shot_distance      : 18
+moderate_kick_shot_distance     : 16
+cycles_to_kick_buffer           : 3
+breakaway_shot_distance         : 17
+
+cycles_to_kick                  : 3
+dribble_sphere_rad              : 4
+
+##########################################
+
+#default 20, 2
+max_int_lookahead : 50
+intercept_step    : 5
+
+ball_invalidation_dist_err : 100.0
+
+ball_conf_decay                 : 0.94
+
+mark_persist_time : 6000
+
+team_name			: OZ
+
+goalie_number : 1
+
+# default  4.21
+version				: 5.25
+
+# default localhost
+host				: localhost
+
+#For version5
+dodge_distance_buffer 		:  1.8
+dodge_power 			:  100
+dodge_angle			:  60
+libero_defense_depth		:  15
+defense_depth			:  10
+
+#Dribble
+opt_ctrl_dist			: .79
+closest_margin			: .47
+#closest_margin			: .52
+dribble_ball_dist		: .7
+dokick_factor			: .4
+#max_turn_kick_pow		:  30
+max_turn_kick_pow		:  100
+
+#HardKick
+hard_kick_turn_err   		:   5
+hard_kick_margin		: .47
+hardest_kick_end_turn_dist      : .93
+hard_kick_end_turn_dist		: .8
+hard_kick_dist_buffer		: .2
+hard_kick_factor     		: .4
+static_kick_ang 		:  90
+
+KickTo_err			:   5
+time_for_full_rotation 		:  12
+intercept_step       		:   5
+
+use_logmaker			: off
+use_speed_dribble		: on
+use_through_pass		: off
+check_formation			: off
+minimum_shoot_angle 		:  7

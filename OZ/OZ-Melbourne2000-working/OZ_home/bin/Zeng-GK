@@ -1,0 +1,3 @@
+#!/bin/sh
+prog=./savior-0.736
+$prog -h localhost -p 6000 -t OZ $* 1> /dev/null 2>&1 &

@@ -1,0 +1,114 @@
+#
+# psfont.properties.ja for Japanese extended PostScript printers
+#
+# Copyright (c) 2000 by IBM Corporation
+#
+charset.0=Cp1252
+charset.1=MacSymbol
+charset.2=JIS0201
+charset.3=JIS0208
+#
+serif=serif
+timesroman=serif
+sansserif=sansserif
+helvetica=sansserif
+monospaced=monospaced
+courier=monospaced
+dialog=sansserif
+dialoginput=sansserif
+#
+serif.Cp1252.plain=Times-Roman
+serif.Cp1252.italic=Times-Italic
+serif.Cp1252.bolditalic=Times-BoldItalic
+serif.Cp1252.bold=Times-Bold
+serif.MacSymbol.plain=Symbol
+serif.MacSymbol.bold=Symbol
+serif.MacSymbol.italic=Symbol
+serif.MacSymbol.bolditalic=Symbol
+#
+sansserif.Cp1252.plain=Helvetica
+sansserif.Cp1252.italic=Helvetica-Oblique
+sansserif.Cp1252.bolditalic=Helvetica-BoldOblique
+sansserif.Cp1252.bold=Helvetica-Bod
+sansserif.MacSymbol.plain=Symbol
+sansserif.MacSymbol.bold=Symbol
+sansserif.MacSymbol.italic=Symbol
+sansserif.MacSymbol.bolditalic=Symbol
+#
+monospaced.Cp1252.plain=Courier
+monospaced.Cp1252.italic=Courier-Oblique
+monospaced.Cp1252.bolditalic=Courier-BoldOblique
+monospaced.Cp1252.bold=Courier-Bold
+monospaced.MacSymbol.plain=Symbol
+monospaced.MacSymbol.bold=Symbol
+monospaced.MacSymbol.italic=Symbol
+monospaced.MacSymbol.bolditalic=Symbol
+#
+serif.JIS0208.plain=Ryumin-Light-H
+serif.JIS0208.italic=Ryumin-Light-H
+serif.JIS0208.bolditalic=Ryumin-Light-H
+serif.JIS0208.bold=Ryumin-Light-H
+#
+sansserif.JIS0208.plain=GothicBBB-Medium-H
+sansserif.JIS0208.italic=GothicBBB-Medium-H
+sansserif.JIS0208.bolditalic=GothicBBB-Medium-H
+sansserif.JIS0208.bold=GothicBBB-Medium-H
+#
+monospaced.JIS0208.plain=GothicBBB-Medium-H
+monospaced.JIS0208.italic=GothicBBB-Medium-H
+monospaced.JIS0208.bolditalic=GothicBBB-Medium-H
+monospaced.JIS0208.bold=GothicBBB-Medium-H
+#
+serif.JIS0201.plain=Ryumin-Light.Hankaku
+serif.JIS0201.italic=Ryumin-Light.Hankaku
+serif.JIS0201.bolditalic=Ryumin-Light.Hankaku
+serif.JIS0201.bold=Ryumin-Light.Hankaku
+#
+sansserif.JIS0201.plain=GothicBBB-Medium.Hankaku
+sansserif.JIS0201.italic=GothicBBB-Medium.Hankaku
+sansserif.JIS0201.bolditalic=GothicBBB-Medium.Hankaku
+sansserif.JIS0201.bold=GothicBBB-Medium.Hankaku
+#
+monospaced.JIS0201.plain=GothicBBB-Medium.Hankaku
+monospaced.JIS0201.italic=GothicBBB-Medium.Hankaku
+monospaced.JIS0201.bolditalic=GothicBBB-Medium.Hankaku
+monospaced.JIS0201.bold=GothicBBB-Medium.Hankaku
+#
+Helvetica=0
+Helvetica-Bold=1
+Helvetica-Oblique=2
+Helvetica-BoldOblique=3
+Times-Roman=4
+Times-Bold=5
+Times-Italic=6
+Times-BoldItalic=7
+Courier=8
+Courier-Bold=9
+Courier-Oblique=10
+Courier-BoldOblique=11
+GothicBBB-Medium-H=12
+Ryumin-Light-H=13
+GothicBBB-Medium.Hankaku=14
+Ryumin-Light.Hankaku=15
+Symbol=16
+#
+font.num=17
+#
+font.0=Helvetica Cp1252
+font.1=Helvetica-Bold Cp1252
+font.2=Helvetica-Oblique Cp1252
+font.3=Helvetica-BoldOblique Cp1252
+font.4=Times-Roman Cp1252
+font.5=Times-Bold Cp1252
+font.6=Times-Italic Cp1252
+font.7=Times-BoldItalic Cp1252
+font.8=Courier Cp1252
+font.9=Courier-Bold Cp1252
+font.10=Courier-Oblique Cp1252
+font.11=Courier-BoldOblique Cp1252
+font.12=GothicBBB-Medium-H findfont
+font.13=Ryumin-Light-H findfont
+font.14=GothicBBB-Medium.Hankaku findfont
+font.15=Ryumin-Light.Hankaku findfont
+font.16=Symbol findfont
+#

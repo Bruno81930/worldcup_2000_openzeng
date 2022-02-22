@@ -1,0 +1,1040 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2//EN">
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<HTML>
+<HEAD>
+<TITLE>
+IBM(R) Developer Kit for Linux(R), Java(TM) 2 Technology Edition,
+Version 1.3.0 README for Preview
+</TITLE>               
+</HEAD>
+<BODY BGCOLOR="#FFFFFF" >
+<center>
+<H1>IBM(R) Developer Kit for Linux(R), Java(TM) 2 Technology Edition,
+Version 1.3.0 README for Preview
+</H1>
+</center>
+
+
+<P>This README file provides information about the IBM Developer Kit for Linux(R), 
+Java(TM) 2 Technology Edition,
+Version 1.3.0 (Developer Kit for Linux.) Use this README file if you want to use 
+the Developer Kit for Linux to write Java
+applications and applets.</P>
+<P>The Developer Kit for Linux has been tested with the following products:</P>
+<UL>
+<LI>Red Hat(R) Linux 6.2</LI>
+<LI>Caldera Systems, Inc.(R) OpenLinux(TM) 2.3</LI>
+<LI>SuSE Linux 6.3</LI>
+<LI>TurboLinux 6.0 for all languages except Simplified Chinese</LI>
+<LI>CN TurboLinux 6.0</LI>
+</UL>
+<! Added for defect 9161 >
+<P>The Developer Kit for Linux has been tested with the following window managers:
+<UL>
+<LI>GNOME/Enlightment</LI>
+<LI>K Desktop Environment (KDE)</LI>
+</UL>
+
+<HR>
+
+<CENTER><H1>Preview Notes</H1></CENTER>
+<P>The following is a list of known limitations in the preview release:</P>
+<UL>
+<LI>The Java Plug-in might not work properly.  One of the following
+might happen:
+<P></P>
+<UL>
+<LI>You might not be able to install the Java Plug-in.</LI>
+
+<LI>If you are able to install the Java Plug-in, your applets might not run correctly.</LI>
+</UL>
+</LI>
+<P></P>
+<LI>Double-byte character set (DBCS) support is not fully functional at this time.  DBCS
+characters might not display properly.</LI>
+<P></P>
+<LI>Files in the ICAT subdirectory are only placeholders rather than executable files.</LI>
+<P></P>
+<LI>Audio support does not work correctly.</LI>
+<P></P>
+</UL>
+
+<HR>
+
+<H2>Contents</H2>
+<MENU>
+<LI><A NAME="ovvcont" HREF=#overview>Overview</A></LI>
+<MENU>
+<LI><A HREF=#compatib>Version compatibility</A></LI>
+<LI><A HREF=#content>Contents of the Developer Kit for Linux</A></LI>
+<LI><A HREF=#jit>The just-in-time (JIT) compiler</A></LI>
+</MENU>
+
+<LI><A NAME="cfgcont" HREF=#config>Configuring the Developer Kit for Linux</A></LI>
+<MENU>
+<LI><A HREF=#plugin>Installing and configuring the Java Plug-in</A></LI>
+<LI><A HREF=#instfont>Installing and registering additional fonts</A></LI>
+<LI><A HREF=#caldglib>Updating the glibc on Caldera eServer 2.3</A></LI>
+</MENU>
+<LI><A NAME="unincont" HREF=#unincons>Uninstalling the Developer Kit for Linux</A></LI>
+<MENU>
+<LI><A HREF=#uninrpm>Uninstalling the installable RPM package</A></LI>
+<LI><A HREF=#unintgz>Uninstalling the compressed TAR package</A></LI>
+</MENU>
+
+<LI><A NAME="eurocont" HREF=#eurosymb>Euro symbol support</A></LI>
+<MENU>
+<LI><A HREF=#unicode>Unicode Support</A></LI>
+<LI><A HREF=#collate>Collation of Currency Symbols</A></LI>
+</MENU>
+<LI><A NAME="usecont" HREF=#usedkit>Using the Developer Kit</A></LI>
+<MENU>
+<LI><A HREF=#pathcons>PATH considerations</A></LI>
+<LI><A HREF=#claspath>CLASSPATH considerations</A></LI>
+<LI><A HREF=#runappl>Running applets with the Applet Viewer</A></LI>
+<LI><A HREF=#dbugappl>Debugging applets with the Applet Viewer</A></LI>
+<LI><A HREF=#findbld>Obtaining the IBM build and version number</A></LI>
+<LI><A HREF=#imfswtch>Switching the input method in DBCS languages</A></LI>
+</MENU>
+<LI><A NAME="shipcont" HREF=#shipjapp>Shipping Java applications</A></LI>
+
+<LI><A NAME="trbcont" HREF=#trouble>Troubleshooting</A></LI>
+
+<LI><A NAME="lmtcont" HREF=#limits>Known limitations</A></LI>
+
+
+
+<LI><A NAME="notcont" HREF=#notices>Notices</A></LI>
+
+<LI><A NAME="tmrkcont" HREF=#tmarks>Trademarks</A></LI>
+</MENU>
+
+<HR>
+<A NAME="overview" HREF=#ovvcont><H2>Overview</H2></A>
+
+<P>The Developer Kit for Linux is a development environment for writing
+applets and applications that conform to Sun's Java 1.3 Core
+Application Programming Interface (API).</P>
+
+<HR>
+<A NAME="compatib" HREF=#ovvcont><H3>Version compatibility</H3></A>
+
+<P>In general, any applet or application that runs in Version 1.1.8
+of the Developer Kit for Linux should run correctly in this version.
+Applets that depend on Sun's Java 1.3 APIs work only on browsers that
+support Java 1.3 APIs.</P>
+
+<P>For more details, see the document on compatibility at the following
+Sun Web site:</P>
+<UL>
+<A HREF="http://java.sun.com/products/jdk/1.3/compatibility.html">http://java.sun.com/products/jdk/1.3/compatibility.html</A>
+</UL>
+
+<HR>
+<A NAME="content" HREF=#ovvcont><H3>Contents of the Developer Kit for Linux</H3></A>
+
+<P>The following list describes the contents of the Developer Kit
+for Linux.</P>
+<DL>
+<DT>RUNTIME - Core Classes (rt.jar)</DT>
+<P></P>
+<DD>This file contains all of the compiled .class files for the
+platform and must remain zipped for the compiler and interpreter
+to properly access the class files within it.</P></DD>
+
+<DT>SOURCE FILES - Public Classes (javasrc.jar)</DT>
+<P></P>
+<DD>These are the source files used to create the core classes
+    that are included in the classes.zip file. These source files are provided
+    for information only, to help developers learn to use the Java
+    programming language. 
+
+    <P>Do not modify these classes; instead, create subclasses and override
+    where you need to.</P></DD>
+<P></P>
+<DT>TOOLS</DT>
+<DD>The tools provided include:
+<P></P>
+<UL>
+<LI>Java Compiler (javac)
+<P>Compiles programs written in the Java programming language into
+bytecodes (compiled Java code).</P></LI>
+
+<LI>Java Interpreter (java)
+<P>Executes Java bytecodes.  The Java Interpreter runs programs
+written in the Java programming language.</P></LI>
+
+<LI>Java Applet Viewer (appletviewer)
+<P>Use for testing and running applets.</P></LI>
+
+<LI>Java Debugger (jdb)
+<P>Helps debug your Java programs.</P></LI>
+
+<LI>Class File Disassembler (javap)
+<P>Disassembles compiled files and prints a representation of
+the bytecodes.</P></LI>
+
+<LI>Java Documentation Generator (javadoc)
+<P>Parses the declarations and documentation comments in a set of
+source files and produces a set of HTML pages describing the
+public and protected classes, interfaces, constructors, methods,
+and fields. Also produces a class hierarchy and an index of all
+members.</P></LI>
+
+<LI>C Header and Stub File Generator (javah)
+<P>Attaches native methods to code written in the Java programming
+language.</P></LI>
+
+<LI>Java Archive Tool (jar)
+<P>Generates signatures for Java Archive (JAR) files, and verifies 
+the signatures of signed JAR files.</P></LI>
+
+<LI> JAR Signing and Verification Tool (jarsigner)
+<P>Manages entities, including their keys,
+certificates, and the trust associated with them.</P>
+</LI>
+
+<LI> Key and Certificate Management Tool (keytool)
+<P>Manages a keystore (database) of private keys 
+and their associated X.509 certificate chains 
+authenticating the corresponding public keys.</P> 
+
+<LI> Policy File Creation and Management Tool (policytool)
+<P>Creates and modifies the external policy 
+configuration files that define your installation's
+Java security policy.</P>
+</LI>
+
+<LI>Native-To-ASCII Converter (native2ascii)
+<P>Converts a native encoding file to an ASCII file that includes the
+<B>\udddd</B> Unicode notation.</P></LI>
+
+<LI>Java Remote Method Invocation (RMI) Stub Converter (rmic)
+<P>Generates objects from the names of compiled classes that contain
+remote object implementations.  Includes RMI over Internet Inter-ORB
+Protocol (IIOP), or RMI-IIOP, support.</P></LI>
+
+<LI>RMI activation system daemon (rmid)
+<P>Starts the activation system daemon so that
+objects can be registered and activated in a 
+Java virtual machine (JVM).</P>
+</LI>
+<LI>IDL to Java Compiler (idlj)
+<P>Compiles Object Management Group (OMG) Interface Definition 
+Language (IDL) files to Java code.</P>
+</LI>
+<LI>Common Object Request Broker Architecture (CORBA) 
+Naming Service (tnameserv)
+<P>Starts the CORBA transient naming service.</P>
+</LI>
+<LI>Java Remote Object Registry (rmiregistry)
+<P>Creates and starts a remote object registry on
+the specified port of the current host.</P>
+</LI>
+<LI>Serial Version Command (serialver)
+<P>Returns the serialVersionUID for one or more
+classes in a form that is suitable for copying into an
+evolving class.</P>
+</LI>
+<LI>Extcheck utility (extcheck)
+<P>Detects version conflicts between a target jar   
+file and currently installed extension jar 
+files.</P>
+</LI>
+
+
+<LI>Various C libraries and include files.</LI>
+</UL>
+</DD>
+<P></P>
+<DT>JAVA DOCUMENTATION AND DEMOS</DT>
+<DD>
+<P>The following documentation and demos are included with the Developer Kit for Linux:</P>
+<UL>
+<LI>Demo directory:
+<P></P>
+<DL>
+<DT>Animator</DT>
+<DD>General-purpose animator</DD>
+<DT>ArcTest</DT>
+<DD>Test arc drawing and filling</DD>
+<DT>BarChart</DT>
+<DD>Simple bar-chart applet</DD>
+<DT>Blink</DT>
+<DD>Blinking, multicolored text</DD>
+<DT>CardTest</DT>
+<DD>Test card layout manager</DD>
+<DT>Clock</DT>
+<DD>Analog clock</DD>
+<DT>DitherTest</DT>
+<DD>Test image dithering</DD>
+<DT>DrawTest</DT>
+<DD>Draw points and lines</DD>
+<DT>Fractal</DT>
+<DD>Fractal figures</DD>
+<DT>GraphicsTest</DT>
+<DD>Test graphics operations</DD>
+<DT>GraphLayout</DT>
+<DD>Graph layout by iterated relaxation</DD>
+<DT>ImageMap</DT>
+<DD>Live-feedback image map</DD>
+<DT>JumpingBox</DT>
+<DD>Catch the jumping box</DD>
+<DT>MoleculeViewer</DT>
+<DD>Three-dimensional chemical model viewer</DD>
+<DT>NervousText</DT>
+<DD>Nervous text</DD>
+<DT>SimpleGraph</DT>
+<DD>Draw a simple graph</DD>
+<DT>SortDemo</DT>
+<DD>Animated sorting algorithms</DD>
+<DT>SpreadSheet</DT>
+<DD>Simple spreadsheet</DD>
+<DT>SymbolTest</DT>
+<DD>Displays Unicode character ranges</DD>
+<DT>TicTacToe</DT>
+<DD>Tic-tac-toe game</DD>
+<DT>WireFrame</DT>
+<DD>Three-dimensional wire-frame model viewer</DD>
+</DL>
+</LI>
+<P></P>
+<LI>
+The <B>rmi-iiop</B> subdirectory contains the following sample 
+RMI-IIOP applications and applets:
+<P></P>
+<DL>
+<DT>hello</DT>
+<DD>A <I>Hello World</I> example that can switch
+between the JRMP and IIOP protocols</DD>
+<DT>idl</DT>
+<DD>A <I>Hello World</I> example that interacts with a
+standard IDL program</DD> 
+</DL>
+</LI>
+<P></P>
+<LI>The following demo subdirectories are located in the 
+<B>jfc</B> subdirectory. They contain Swing, Java2D, and other demos.
+<P></P> 
+<UL>
+          DBDemos<BR> 
+          FileChooserDemo <BR>
+          Font2DTest<BR>
+          Java2D <BR>
+          Metalworks<BR>
+          Notepad <BR>
+          SampleTree<BR>
+          SimpleExample<BR> 
+          Stylepad<BR>
+          SwingApplet<BR>
+          SwingSet2<BR>
+          TableExample
+</UL>          
+
+</LI>
+<P></P>
+<LI>The <B>bigdecimal</B> subdirectory contains a decimal arithmetic sample using the IBM
+BigDecimal classes.</LI>
+<P></P>
+<LI>The <B>jdbcodbc</B> subdirectory contains a sample using the IBM JDBC-ODBC bridge. </LI>
+<P></P>
+<LI>The <B>sound</B> subdirectory contains Java sound demos. </LI>
+</UL>                    
+<P></P>
+
+<LI>README:
+<P>This file.</P>
+</LI>
+<LI>COPYRIGHT:
+<P>Copyright notice for the Developer Kit for Linux software.</P>
+</LI>
+<LI>LICENSE:
+<P>The LICENSE.SDK.HTML file contains the license agreement for the Developer
+Kit for Linux software.</P>
+
+<P>To view or print the license agreement, open the file in a Web browser.</P>
+
+</LI>
+<LI>FIXES.LST:
+<P>A text file that describes any defects fixed
+after the initial release of this version.</P>
+</LI>
+<P><B>Note:</B> This README file and the accompanying license, copyright
+files, demo directory, and source code (javasrc.jar) are the
+only documentation included in this Developer Kit for
+Linux. You can look at Sun's software documentation by
+visiting the Sun Web site, or you might be able to download
+Sun's Software documentation package from the following
+Sun Web site:</P>
+<UL>
+<A HREF="http://java.sun.com/products/jdk/1.3/">http://java.sun.com/products/jdk/1.3/</A>
+</UL>
+<P>The documentation package is designed to be extracted into
+the Developer Kit for Linux software installation
+directory. If you download the zip file archive version, be
+sure to preserve the file path names when you extract the
+files from the archive. If you use pkunzip, specify the <B> -d</B>
+option.</P>
+</UL>
+</DD>
+</DL>
+
+<HR>
+<A NAME="jit" HREF=#ovvcont><H3>The just-in-time (JIT) compiler</H3></A>
+ 
+
+<P>The Developer Kit for Linux includes the IBM just-in-time (JIT)
+compiler (libjitc.so). The JIT compiler dynamically generates machine code for
+frequently used bytecode sequences in a Java application
+or applet while it is running. </P>
+<P>All Developer Kit for Linux tools use the JIT
+by default. You can disable the JIT to help isolate a problem with a Java 
+application, an applet, or the compiler itself. To disable the JIT, type the following at a 
+shell prompt.</P>
+<PRE>
+    export JAVA_COMPILER=NONE
+</PRE>
+
+<P>To enable the JIT, type the following
+at a shell prompt:</P>
+
+<PRE>
+    export JAVA_COMPILER=jitc
+</PRE>
+
+
+<P>To determine if the JIT is enabled, type the following at a shell prompt:</P>
+<UL>
+<CODE>java -fullversion</CODE>
+</UL>
+<P>If a JIT is in use, one of the following messages is displayed:</P>
+<UL>
+<LI><CODE>(JIT enabled: jitc)</CODE></LI>
+<LI><CODE>compiler = enabled: jitc</CODE></LI>
+</UL>
+<P>If no JIT is in use, one of the following messages is displayed:</P>
+<UL>
+<LI><CODE>(JIT disabled)</CODE></LI>
+<LI><CODE>compiler = disabled</CODE></LI>
+</UL>
+
+
+<HR>
+<A NAME="config" HREF=#cfgcont><H2>Configuring the Developer Kit for Linux</H2></A>
+<P>After you install the Developer Kit for Linux, edit your shell script and add
+to your PATH statement the directory where you installed the Developer Kit. For 
+more information about the PATH statement, see 
+<A HREF=#pathcons>PATH considerations</A>.</P>
+
+<HR>
+<A NAME="plugin" HREF=#cfgcont><H3>Installing and configuring the Java Plug-in</H2></A>
+<P>The Java Plug-in is a Web browser plug-in for use with Netscape Communicator for Linux. 
+If you use the Java Plug-in, you can bypass your Web browser's default Java Virtual
+Machine and use instead a Java Runtime Environment (JRE) for running applets or
+beans in the browser.</P>
+ 
+<P>To install and configure the Java Plug-in:</P>
+
+<UL>
+<LI>If you are logged on as user ID <B>root</B>, copy the library file 
+/opt/IBMJava2-13/jre/bin/javaplugin12.so to one of the following directories:
+<P></P>
+<UL>
+<LI>/usr/lib/netscape/plugins if you want to make the Java Plug-in 
+available to all users on the system</LI>
+<LI>$HOME/.netscape/plugins if you want to make the Java Plug-in 
+available only to user ID <B>root</B></LI>
+</UL>
+</LI>
+
+<P></P>
+<LI>If you are not logged on as user ID <B>root</B>.</P>
+
+<OL>
+<LI>Create a directory called /$HOME/.netscape/plugins if it does
+not already exist.</LI>
+<LI>Copy the library file /opt/IBMJava2-13/jre/bin/javaplugin12.so to 
+/$HOME/.netscape/plugins.</LI>
+</OL>
+</LI>
+</UL>
+
+<HR>
+<A NAME="instfont" HREF=#cfgcont><H3>Installing and registering additional fonts</H2></A>
+
+<P>After installation, if you downloaded additional fonts, you can install and register 
+them. If you downloaded the fonts in parts, you must first put them back together into
+one file for each font.</P>
+
+<P><B>Note:</B>  Asian characters cannot be displayed, even in the Asian locale, 
+if you do not have the Times New Roman
+MT30 font installed on your system. Therefore, at a minimum, you must 
+download the Times New Roman MT30 font to
+display Asian characters.</P>
+
+<P>To put a font file back together, use the <B>cat</B>
+command.</P>
+
+<P>For example, if you downloaded the Times New Roman MT30 font
+in parts, type the following command to put it back together:
+<PRE>
+    cat tmrmt30.t01 tmrmt30.t02 > tmrmt30.ttf
+</PRE>
+
+<P>To install the additional fonts, copy them to the 
+/opt/IBMJava2-13/jre/lib/fonts directory.</P>
+ 
+<HR>
+<A NAME="caldglib" HREF=#cfgcont><H3>Updating the glibc on Caldera eServer 2.3</H2></A>
+
+<P>There is an incompatibility in the glibc package used by Caldera eServer 2.3; this might 
+cause Java applications to hang when you compile or run a Java application or applet 
+on Caldera eServer 2.3.
+To download and install an updated version of glibc, see the following Caldera 
+Systems, Inc. Web site:</P>
+<UL>
+<A HREF=http://support.calderasystems.com/caldera>http://support.calderasystems.com/caldera</A>
+</UL>
+<OL>
+<LI>Select <B>.eServer 2.3</B> in the list of products and <B>Updates</B>
+in the list of Categories,
+and then click <B>Get FAQ</B>.</LI>
+<LI>In the list that is displayed, select 
+item <B>2. .eServer 2.3 Updates - Updated Package glibc-2.1.2-2S</B>.</LI>
+<LI>Click on one of the links to download the package, and follow the directions 
+provided to upgrade.</LI>
+
+</OL>
+
+<P></P>
+<HR>
+<A NAME="unincons" HREF=#unincont><H2>Uninstalling the Developer Kit for Linux</H2></A>
+<P>The process you use to remove the Developer Kit for Linux depends on whether you 
+installed the installable RPM package or the compressed TAR package. See 
+<A HREF=#uninrpm>Uninstalling the installable RPM package</A> or 
+<A HREF=#unintgz>Uninstalling the compressed TAR package</A> for instructions.
+<HR>
+
+<A NAME="uninrpm" HREF=#unincont><H3>Uninstalling the installable RPM package</H3></A>
+<P>To uninstall the Developer Kit for Linux if you installed the installable RPM
+package:</P>
+
+<OL>
+<LI>At a shell script, type the following:
+<PRE>
+    rpm -qa | grep IBM
+</PRE>
+The name of the package is displayed.
+<P></P>
+<LI>Use the <B>rpm</B> command, as follows:
+<PRE>
+    rpm -e <I>pkgname</I>
+</PRE>
+where <I>pkgname</I> is the name of the package that was displayed.</LI>
+<P></P>
+<LI>Modify your shell script. Remove from your PATH statement the directory 
+where you installed the Developer Kit.
+<P></P>
+<LI>If you installed the Java Plug-in, remove the Java Plug-in files from the 
+Netscape directory.</LI>
+
+</OL>
+
+<HR>
+<A NAME="unintgz" HREF=#unincont><H3>Uninstalling the compressed TAR package</H3></A>
+<P>To uninstall the Developer Kit for Linux if you installed the compressed TAR 
+package:</P>
+
+<OL>
+<LI>Remove the Developer Kit files from the directory 
+where you installed the Developer Kit.
+</LI>
+<P></P>
+<LI>Modify your shell script. Remove from your PATH statement the directory 
+where you installed the Developer Kit.</LI>
+<P></P>
+<LI>If you installed the Java Plug-in, remove the Java Plug-in files from the 
+Netscape directory.</LI>
+</OL>
+
+
+<HR>
+<A NAME="eurosymb" HREF=#eurocont><H2>Euro symbol support</H2></A>
+
+<P>To take advantage of the euro symbol support, the operating
+system must support the euro symbol. This might require that you
+install standard ISO-8859-15 (Latin-9 or Latin-0). For further
+information, see the HOWTO for your distribution of Linux.</P>
+
+<P>The following sections give further information on euro symbol support.</P>
+
+<HR>
+<A NAME="unicode" HREF=#eurocont><H3>Unicode support</H3></A>
+
+<P>The Unicode character for the euro is u'20ac'.</P>
+
+<HR>
+<A NAME="collate" HREF=#eurocont><H3>Collation of currency symbols</H3></A>
+
+<P>Collation of currency symbols traditionally follows the English
+collation order of the symbol name. Thus <B>cent</B> is followed by
+<B>dollar</B>. According to this scheme, the euro symbol sorts
+immediately following the dollar and dong currency symbols and before
+the French franc.</P>
+
+<HR>
+<A NAME="usedkit" HREF=#usecont><H2>Using the Developer Kit</H2></A>
+
+<P>The main Developer Kit for Linux tools are programs that are run from
+a shell prompt; they do not have a Graphical User Interface (GUI).</P>
+
+<P>The following sections give information on using the Developer Kit
+for Linux.</P>
+
+<HR>
+<A NAME="pathcons" HREF=#usecont><H3>PATH considerations</H3></A>
+
+<P>After installing the Developer Kit for Linux software, you can run a
+tool by typing its name at a shell prompt with a filename as an argument.</P>
+
+<P>You can specify the path to a tool by typing the path before the name of the
+tool each time. For example, if the Developer Kit for Linux software
+is installed in /opt/IBMJava2-13/bin, you can compile a file named
+myfile.java by typing the following at a shell prompt:</P>
+<PRE>
+  /opt/IBMJava2-13/bin/javac myfile.java
+</PRE>
+<P>To avoid typing the full path each time:
+<OL>
+<LI>Add the following directories to the PATH
+environment variable:</P>
+<UL>  
+<LI>/opt/IBMJava2-13/bin</LI>
+<LI>/opt/IBMJava2-13/jre/bin</LI>
+</UL></LI>
+<P></P>
+<LI>Compile the file with the <B>javac</B> tool. For example, compile the file myfile.java
+by typing the following at a shell prompt:</P>
+<PRE>
+  javac myfile.java
+</PRE>
+</LI>
+</OL>
+<P>The PATH environment variable enables Linux to find executable files,
+such as javac, java, and javadoc, from any current directory.  To
+display the current value of your PATH, type the following at a
+shell prompt:</P>
+<PRE>
+  echo $PATH
+</PRE>
+
+<P>To change the PATH environment variable:</P>
+<OL>
+<LI>Edit your shell startup
+file (usually .bash_profile, .profile, or .login depending on the
+shell) and add to
+the PATH environment variable the absolute paths to the 
+following directories:
+<UL>
+<LI>/opt/IBMJava2-13/bin</LI>
+<LI>/opt/IBMJava2-13/jre/bin</LI>
+</UL>
+</LI>
+<LI>Log on again or run the updated shell
+script to activate the new PATH setting.</LI>
+</OL> 
+
+<HR>
+<A NAME="claspath" HREF=#usecont><H3>CLASSPATH considerations</H3></A>
+
+<P>The CLASSPATH tells the Runtime Environment for Linux and the
+Developer Kit for Linux tools, such as java, javac, and javadoc, where
+to find the Java class libraries. If you keep the <B>bin</B> and <B>lib</B>
+directories under the same parent directory level, the executable
+files can find the classes.</P>
+
+<P>You need to explicitly set the CLASSPATH only if one of the following applies:</P>
+
+<UL>
+<LI>You require a different library, such as one you develop.</LI>
+<LI>You change the location of the <B>bin</B> and <B>lib</B> directories such that
+they no longer have the same common parent directory.</LI>
+<LI>You plan to develop or run applications using different runtime
+environments on the same system.</LI>
+<LI>You are running TurboLinux.</LI>
+</UL>
+
+<P>To display the current value of your CLASSPATH, type the following at
+a shell prompt:</P>
+<PRE>
+  echo $CLASSPATH
+</PRE>
+
+<P>If you plan to develop and run applications using different runtime
+environments, you need to explicitly set the CLASSPATH (and PATH)
+appropriately for each application. If you plan to simultaneously run 
+multiple applications using
+different runtime environments, be
+sure each application is run in its own shell.</P>
+
+<P>If you want to run only one version of Java at a time, a shell
+script can be used to switch between the different runtime environments.</P>
+
+<HR>
+
+<A NAME="runappl" HREF=#usecont><H3>Running applets with the Applet Viewer</H3></A>
+
+<P>With the Applet Viewer, you can run one or more applets that are called by
+reference in a Web page (HTML file) using the APPLET tag. The Applet
+Viewer finds the APPLET tags in the HTML file and runs the applets, in
+separate windows, as specified by the tags.</P>
+
+<P>Because the Applet Viewer is for viewing applets, it cannot display an
+entire Web page that contains numerous HTML tags. It parses only the
+APPLET tag and no other HTML on the Web page.</P>
+
+<P>To run an applet with the Applet Viewer, type the following at a shell prompt:</P>
+
+<PRE>
+   appletviewer <I>name</I>
+</PRE> 
+<P> where <I>name</I> is one of the following: </P> 
+<UL>
+<LI>The file name of an HTML file that calls an applet</LI>
+<LI>The URL of a Web page that calls an applet</LI>
+</UL>
+<P>For example, to invoke the Applet Viewer on an HTML file that calls an applet,
+type the following at a shell prompt:</P>
+
+<PRE>
+  appletviewer $HOME/<I>filename</I>.html
+</PRE>
+where <I>filename</I> is the name of the HTML file.</LI>
+</OL>
+<P>For example, to invoke the Applet Viewer on a URL-based Web
+page that calls an applet, type the following at a shell prompt:</P>
+<PRE>
+  appletviewer http://java.sun.com/applets/NervousText/example1.html
+</PRE>
+
+<HR>
+<A NAME="dbugappl" HREF=#usecont><H3>Debugging applets with the Applet Viewer</H3></A>
+
+<P>You can debug applets using the <B>-debug</B> option of Applet Viewer. When
+debugging applets, it is best to invoke Applet Viewer from the
+directory that contains the HTML file that calls the applet. For example:</P>
+<PRE>
+     cd demo/TicTacToe
+     ../../bin/appletviewer -debug example1.html
+</PRE>
+<P>You might find documentation on the debugger and its API at the
+following Sun Web site:</P>
+<UL>
+<A HREF="http://java.sun.com/products/jdk/1.2/debugging/">http://java.sun.com/products/jdk/1.2/debugging/</A>
+</UL>
+
+<HR>
+<A NAME="findbld" HREF=#usecont> <H3>Obtaining the IBM build and version number</H3></A>
+<P>To obtain the IBM build and
+version number, type the following at a shell
+prompt:</P>
+<UL>
+<CODE>java -version</CODE> 
+</UL>
+
+<HR>
+<A NAME="imfswtch" HREF=#usecont><H3>Switching the input method in DBCS languages</H3></A>
+<P>On double-byte character set (DBCS) systems, if you want to switch the input method, 
+you must set an 
+environment variable that represents the keycode you use for switching.  Optionally, 
+you can set 
+another environment variable that represents the modifiers of the keycode.</P>
+
+<P>To specify the keycode to use for switching, set the  
+IBMJAVA_INPUTMETHOD_SWITCHKEY environment variable to some keycode definition in 
+the java.awt.event.KeyEvent class, for example, VK_F4. </P> 
+<P>Optionally, specify modifiers of the keycode. 
+To specify modifiers of the keycode, set the 
+IBMJAVA_INPUTMETHOD_SWITCHKEY environment variable to some combination of 
+the following three mask 
+definitions in the java.awt.event.InputEvent class:</P>
+<UL>
+<LI>ALT_MASK</LI>
+<LI>CTRL_MASK</LI>
+<LI>SHIFT_MASK</LI>
+</UL>
+<P> Separate the masks by commas.</P>
+<P>For example you might set the IBMJAVA_INPUTMETHOD_SWITCHKEY environment variable 
+to ALT_MASK, CTRL_MASK. </P>
+
+<P>During Java initialization, the two environment variables are stored.</P>
+
+<P>To be sure you have set the environment variables correctly, press a key and check 
+it with the key combination you specified.  If it matches, a Java pop-up 
+menu with selectable input methods is displayed.</P>
+
+
+<HR>
+
+<A NAME="shipjapp" HREF=#shipcont><H2>Shipping Java applications</H2></A>
+
+<P>A Java application, unlike a Java applet, cannot rely on a Web browser
+for installation and runtime services. When you ship a Java application,
+your software package probably consists of the following parts:</P>
+<UL>
+<LI>Your own class, resource, and data files</LI>
+<LI>A runtime environment</LI>
+<LI>An installation procedure or program</LI>
+</UL>
+
+<P>To run your application, a user needs the Runtime Environment for
+Linux.  The Developer Kit for Linux software contains a runtime
+environment. However, you cannot assume that your users have the
+Developer Kit for Linux software installed.</P>
+<P>Your Developer Kit for Linux software license does not allow you to
+redistribute the Developer Kit for Linux software files.  The Runtime
+Environment for Linux is available for redistribution as a separate
+package. You can download the
+Runtime Environment for Linux from the Web site where you obtained the 
+Developer Kit for Linux.</P>
+
+<HR>
+<A NAME="trouble" HREF=#trbcont><H2>Troubleshooting</H2></A>
+
+<P>If you encounter a problem after you install the Developer Kit for Linux, check the following 
+list:</P>
+
+<UL>
+<! Added for defect 8024 >
+<LI>Java application appears 
+to hang when you compile or run a Java 
+application or applet on Caldera eServer 2.3.  
+<P>Terminate the application by typing Ctrl+C.
+This problem can be caused by an incompatibility in the glibc 
+package used by Caldera eServer 2.3. Generally, to resolve the problem, you must 
+update the glibc package that is available from the Caldera Support Website. See 
+<A HREF=#caldglib>Updating the glibc on Caldera eServer 2.3</A> for instructions.</P></LI>
+
+<LI><CODE>Unable to load libjava.so library</CODE> message.
+
+<P>If you receive a message indicating that the libjava.so library
+could not be loaded because of a symbol not found (such as
+__bzero), you might have a down-level version of the GNU C Runtime
+Library, glibc, installed. The Developer Kit for Linux thread
+implementation requires glibc version 2.1 or greater.</P></LI>
+
+<LI>AppletViewer does not load applets.
+<P>If the AppletViewer does not load applets, type the following
+at a shell prompt:</P>
+
+<PRE>
+    java -verbose sun.applet.AppletViewer
+</PRE>
+<P>This command lists the classes that are being loaded. From this
+output, you can determine which class the Applet Viewer is trying
+to load and where it is trying to load it from. Check to make sure
+that the class exists and is not damaged in some way.</P></LI>
+
+<LI>Application does not handle EINTR return code correctly
+<! Added for defect 8265 >
+<P>If you are writing a Java application, particularly a JNI application,
+be sure that the application handles the EINTR return code
+correctly; otherwise the application will fail.  </P></LI>
+
+</UL>
+
+
+<HR>
+<A NAME="limits" HREF=#lmtcont><H2>Known limitations</H2></A>
+
+<UL>
+
+<LI>The Developer Kit for Linux implements Java threads as native threads
+which results in each thread being a separate Linux process.  If the
+number of Java threads exceeds the maximum number of processes allowed,
+your program might get an error message, a SIGSEGV error, or simply
+hang.
+
+<P>The maximum number of threads available is determined by the minimum of:
+<P></P>
+<UL TYPE=CIRCLE>
+<LI>The user processes setting (ulimit -u) in
+/etc/security/limits.conf</LI>
+
+<LI>The limit MAX_TASKS_PER_USER defined in
+/usr/include/linux/tasks.h  (change requires Linux kernel to be
+recompiled)</LI>
+
+<LI>The limit PTHREAD_THREADS_MAX defined in libpthreads.so
+(change requires Linux kernel to be recompiled)</LI>
+</UL>
+<P>However, you might run out of virtual storage prior to reaching the
+maximum number of threads.  Additional information on adjusting
+these limits might be available at the following Web address:</P>
+<UL>
+<A HREF="http://www.volano.com/linux.html">http://www.volano.com/linux.html</A>.
+</UL>
+</LI>
+<P></P>
+<LI>If a Java application is terminated with a Ctrl-C by the user,
+a number of processes might be left orphaned.</LI>
+<P></P>
+<LI>The Runtime for Linux tries to determine which window manager
+is being used in Linux and place windows on the screen appropriately.
+Occasionally, as is the case with the Enlightenment window manager,
+this might result in windows being positioned partially off the screen.</LI>
+<P></P>
+<LI>The javap program, when run on an interface, duplicates the string
+"interface" in the result.  For example, running javap on
+"java.lang.Runnable" produces:
+<PRE>
+     public interface interface java.lang.Runnable extends java.lang.Object...
+</PRE></LI>
+<LI>Displaying dialog boxes created with Swing might result in a noticeable
+delay of a few seconds before they are actually displayed.</LI>
+<P></P>
+<LI>Key Event results involving the ALT key differ when using different
+window managers in Linux; they also differ from results in other operating systems.
+In the Enlightenment window manager, Alt+A and Shift+Alt+A produce
+different modifiers, and Ctrl+Alt+A produces no key event at all.
+However, when using the WindowMaker window manager, Ctrl+Alt+A produces
+a key event. 
+
+<P>On the Linux X Window System, the keymap is set to: 64 0xffe9 (Alt_L)
+0xffe7 (Meta_L), and 113 0xffea (Alt_R) 0xffe8 (Meta_R). You can check
+this by typing the following at a shell prompt:</P>
+<PRE>
+         xmodmap -pk
+</PRE>
+<P>This is why the Developer Kit for Linux considers that Meta is being
+pressed together with Alt. As a workaround, you can remove the Meta_x
+mapping by typing the following at a shell prompt:</P>
+<PRE>
+         xmodmap -e "keysym Alt_L = Alt_L" -e "keysym Alt_R = Alt_R"
+</PRE>
+<P><B>Note:</B> This workaround might affect other X-Windows applications running
+on the same display if it uses the Meta-key that was removed.</P>
+</LI>
+</UL>
+
+<HR>
+<A NAME="notices" HREF=#notcont><H2>Notices</H2></A>
+
+<P>This edition applies to the IBM Developer Kit for Linux, Java 2
+Technology Edition, Version 1.3.0 and to all subsequent releases
+and modifications until otherwise indicated in new editions.</P>
+
+<P>Copyright International Business Machines Corporation 2000. All rights
+reserved.</P>
+
+<P>Note to U.S. Government Users Restricted Rights -- Use, duplication
+or disclosure restricted by GSA ADP Schedule Contract with IBM Corp.</P>
+
+<P>Consult your local IBM representative for information on the products
+and services currently available in your area. Any reference to an IBM
+product, program, or service is not intended to state or imply that
+only that IBM product, program, or service may be used. Any functionally
+equivalent product, program, or service that does not infringe any IBM
+intellectual property right may be used instead. However, it is the
+users responsibility to evaluate and verify the operation of any
+non-IBM product, program, or service.</P>
+
+<P>IBM may have patents or pending patent applications covering subject
+matter in this document. The furnishing of this document does not give
+you any license to these patents. You can send license inquiries, in
+writing, to:</P>
+<UL>
+  IBM Director of Licensing<BR>
+  IBM Corporation<BR>
+  North Castle Drive<BR>
+  Armonk, NY  10504-1758<BR>
+  U.S.A.<BR>
+</UL>
+<P>For license inquiries regarding double-byte (DBCS) information,
+contact the IBM Intellectual Property Department in your country or
+send inquiries, in writing, to:</P>
+<UL>
+  IBM World Trade Asia Corporation Licensing<BR>
+  2-31 Roppongi 3-chome, Minato-ku<BR>
+  Tokyo 106-0032, Japan<BR>
+</UL>
+<P>The following paragraph does not apply to the United Kingdom or any
+other country where such provisions are inconsistent with local law:</P>
+
+<P>INTERNATIONAL BUSINESS MACHINES CORPORATION PROVIDES THIS
+PUBLICATION "AS IS" WITHOUT WARRANTY OF ANY KIND, EITHER
+EXPRESS OR IMPLIED, INCLUDING, BUT NOT LIMITED TO, THE
+IMPLIED WARRANTIES OF NON-INFRINGEMENT, MERCHANTABILITY OR
+FITNESS FOR A PARTICULAR PURPOSE. Some states do not allow
+disclaimer of express or implied warranties in certain
+transactions, therefore, this statement may not apply to you.</P>
+
+<P>This information could include technical inaccuracies or
+typographical errors. Changes are periodically made to the
+information herein; these changes will be incorporated in new editions
+of the information. IBM may make improvements and/or changes in the
+product(s) and/or the program(s) described in this information at any
+time without notice.</P>
+
+<P>Any references in this information to non-IBM Web sites are provided
+for convenience only and do not in any manner serve as an endorsement
+of those Web sites. The materials at those Web sites are not part of
+the materials for this IBM product and use of those Web sites is at
+your own risk.</P>
+
+<P>IBM may use or distribute any of the information you supply in any
+way it believes appropriate without incurring any obligation to you.</P>
+
+<P>Licensees of this program who wish to have information about it
+for the purpose of enabling (i) the exchange of information between
+independently created programs and other programs (including this one)
+and (ii) the mutual use of the information which has been exchanged,
+should contact:</P>
+<UL>
+  JTCMAIL@uk.ibm.com<BR>
+  [Hursley Java Technology Center (JTC) contact]
+</UL>
+<P>Such information may be available, subject to appropriate terms and
+conditions, including in some cases, payment of a fee.</P>
+
+<P>The licensed program described in this document and all licensed
+material available for it are provided by IBM under terms of the
+IBM Customer Agreement, IBM International Program License Agreement
+or any equivalent agreement between us.</P>
+
+
+<P>Information concerning non-IBM products was obtained from the
+suppliers of those products, their published announcements or other
+publicly available sources. IBM has not tested those products and
+cannot confirm the accuracy of performance, compatibility or any other
+claims related to non-IBM products.  Questions on the capabilities of
+non-IBM products should be addressed to the suppliers of those
+products.</P>
+
+
+<HR>
+
+<A NAME="tmarks" HREF=#tmrkcont><H2>Trademarks</H2></A>
+
+<P>The following terms are trademarks of International Business Machines
+Corporation in the United States, or other countries, or both:</P>
+<UL>
+   IBM
+</UL>
+<P>Java and all Java-based trademarks are trademarks of Sun Microsystems, Inc.
+in the United States, other countries, or both.</P>
+
+<P>Other company, product, and service names may be trademarks or service
+marks of others.</P>
+
+
+<P>Copyright (c) 1997, 1999 Sun Microsystems, Inc.<BR>
+901 San Antonio Rd., Palo Alto, CA 94303 USA.<BR>
+All rights reserved.</P>
+
+<P>(c) Copyright IBM Corporation 2000. All rights reserved.</P>
+
+
+</BODY>
+
+</HTML>

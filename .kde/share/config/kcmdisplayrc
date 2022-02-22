@@ -1,0 +1,7 @@
+# KDE Config File
+[Desktop Common]
+Docking=false
+CacheSize=1024
+OneDesktopMode=true
+[X11]
+useResourceManager=false 

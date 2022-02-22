@@ -1,0 +1,206 @@
+# Configurations for soccerserver 
+# Lines that start '#' are comment lines.
+
+#test
+#test_r
+#test_l
+
+##########################################
+
+#default 1
+#half : 2
+
+#default 433
+#formation         :              433
+formation_when_winning :         532
+formation_when_tied  :           433
+formation_when_losing_lots :     334
+formation_when_losing :          334
+
+set_plays
+# default 5
+set_play_delay : 5
+
+#default on
+spar : on
+mark : on
+communicate : off
+
+pull_offsides
+pull_offsides_when_winning : on
+
+# defaults 0 0 0 
+my_score 			: 0
+their_score			: 0
+reconnect			: 0
+
+# default 1 
+interrupts_per_cycle            : 5
+#interrupts_per_cycle            : 2
+interrupts_left_to_act          : 5
+#interrupts_left_to_act          : 2
+
+good_shot_distance              : 17
+shot_distance                   : 25
+shot_goalie_react_buffer        : 6
+good_shot_goalie_react_buffer   : 3
+shot_speed                      : 1.7
+
+cycles_to_kick_buffer           : 3
+can_keep_ball_cycle_buffer      : 1
+
+breakaway_buffer                : 2
+breakaway_approach_x            : 35
+breakaway_approach_y            : 8
+breakaway_targ_valid_time       : 3
+breakaway_min_goalie_steal_time : 6 #this is what it should be
+breakaway_kick_run_min_cycles   : 7
+#breakaway_kick_run_max_cycles   : 14
+#SMURF: this effectively turns off kick-run
+breakaway_kick_run_max_cycles   : 2
+breakaway_kick_run_worry_dist   : 10
+their_breakaway_min_cone_dist_wid : 12
+our_breakaway_min_cone_dist_wid   : 18
+our_breakaway_kickable_buffer   : 1.5
+their_breakaway_front_kickable_buffer   : 5.0
+their_breakaway_back_kickable_buffer   : 2.0
+goalie_breakaway_kickable_buffer   : 1.5
+
+#default is 15
+goalie_opponent_dist_to_block   : 24
+goalie_comes_out                : on
+
+
+cycles_to_kick                  : 3
+dribble_circle_inner_rad        : 2.5
+dribble_circle_outer_rad        : 4
+dribble_circle_ang 	        : 90
+can_dribble_cone_ratio          : .5
+dribble_towards_length          : 10
+
+##########################################
+
+#train_DT
+use_DT
+#tree_stem : /home/pstone/c4.5/Data/cones-ignore
+#tree_stem : /usr0/pstone/c4.5/Data/99cones-ignore
+#tree_stem : /usr1/pfr/pass-data/99cones-ignore
+tree_stem : /usr1/pfr/soccer/pass-data/99cones-ignore
+
+#default 20, 2
+max_int_lookahead : 50
+intercept_step    : 5
+my_intercept_step : 1
+
+#multiplied by the calculated max distance error to decide
+# whether to invalidate ball velocity
+ball_vel_invalidation_factor: 2.0
+
+
+ball_conf_decay                 : 0.95
+
+#player_1_pos                    : 7
+
+home_change : Shift
+mark_persist_time : 6000
+
+#whether the clients should stop after a my_error
+stop_on_error: off
+
+#default 10
+#tired_buffer : 20
+
+# default CMUnited
+team_name			: Zeng99
+
+#goalie				
+#goalie_number : 1
+goalie_number : 11
+
+# defaults 10,10
+save_freq			: 10
+save_sound_freq			: 10
+save_action_freq                : 40
+save_log 		: off 
+save_sound_log		: off		
+# 0 gives no records, records all levels <= parameter	
+#save_action_log_level           : 200
+save_action_log_level           : 0
+
+# default  4.06
+#version				: 4.18
+version				: 5.25
+
+# default 11
+team_size			: 11
+
+# default localhost
+host				: localhost
+
+
+################################
+#These are updated/optimized parameters for lower level skills
+
+#turnball 
+#optimized
+dokick_factor: .4
+closest_margin: .585
+time_for_full_rotation: 12
+max_turn_kick_pow: 30
+opt_ctrl_dist: .7
+#opt_ctrl_dist: .75
+#not optimized
+KickTo_err: 3
+max_ignore_vel: 0
+
+#hardkick
+#optimized
+hard_kick_dist_buffer: .1
+hardest_kick_player_ang: 90
+hardest_kick_ball_ang: 180
+hardest_kick_ball_dist: .93
+
+#dribble: optimized, though might want to vary buffers independently
+dribble_ball_dist: .75
+dribble_dash_pow : 100
+collision_buffer: .2
+kickable_buffer: .2
+dribble_scan_field: on
+
+#interception
+#this next parameter affects how much slower not turnign can be
+# for that point to be used in interception, -1 turns this off
+no_turn_max_cyc_diff: 2
+intercept_aim_ahead: 1
+#intercept_step: 5
+intercept_step: 5
+my_intercept_step: 1
+
+#static_kick
+static_kick_dist_err: .05
+static_kick_ang_err: 4
+
+#dodge
+dodge_power: 100
+dodge_angle: 60
+
+#how much a player can move and still be the same player (from a hear or see)
+max_player_move_factor: 7
+
+#send things
+beat_offsides_buffer : 15
+beat_offsides_threshold : 30
+beat_offsides_max_x : 25
+
+should_move_to_cross_corner_dist: 20
+should_cross_corner_dist: 10
+should_cross_baseline_buffer: 6
+
+###
+###	調節中のパラメータ達
+###
+dodge_distance_buffer 		:  1.8
+opt_ctrl_dist			: .79
+closest_margin			: .47
+dokick_factor			: .24
+static_kick_ang 		:  35

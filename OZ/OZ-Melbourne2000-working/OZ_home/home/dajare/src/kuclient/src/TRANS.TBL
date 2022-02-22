@@ -1,0 +1,13 @@
+F BASIC_COM.C                       	basic_com.c
+F BASIC_COM.O                       	basic_com.o
+F LIBSCLIENT.H                      	libsclient.h
+F MAKEFILE                          	Makefile
+F MAKEFILE.TMPL                     	Makefile.tmpl
+F NETIF.C                           	netif.c
+F NETIF.O                           	netif.o
+F PLAYMODE.C                        	playmode.c
+F PLAYMODE.O                        	playmode.o
+F POSITION.C                        	position.c
+F POSITION.O                        	position.o
+F SENSOR_INFO.C                     	sensor_info.c
+F SENSOR_INFO.O                     	sensor_info.o

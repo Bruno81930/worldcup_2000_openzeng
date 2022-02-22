@@ -1,0 +1,742 @@
+ 
+ 
+ 
+ 
+ 
+
+ 
+
+
+
+
+
+ 
+
+
+
+
+
+ 
+
+
+
+
+ 
+
+
+
+
+
+ 
+
+
+ 
+
+
+
+
+
+
+
+ 
+
+
+
+
+
+
+ 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ 
+ 
+ 
+
+ 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	      
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ 
+
+
+ 
+
+
+
+
+ 
+
+
+
+
+
+
+ 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    
+
+ 
+11 999
+  100 ACTION_BUTTON_DRAG
+  17 "Click and drag to move desktop"
+  17 "(on any desktop but desktop 0)"
+  102 5
+  930 1
+  103 1
+  931 1
+  428 0
+  104 22
+1000
+
+ 
+
+11 999
+  100 ACTION_GOTO_DESK_NEXT
+  17 "Go to the next Desktop."
+  102 5
+  930 1
+  103 1
+  428 1
+  104 15
+1000
+
+11 999
+  100 ACTION_GOTO_DESK_PREV
+  17 "Go to the previous Desktop."
+  102 5
+  930 1
+  103 1
+  428 1
+  104 16
+1000
+
+11 999
+  100 ACTION_MOVE
+  17 "Hold down left mouse button and drag to move this Window."
+  17 "Double click left mouse button to [un]shade this window."
+  103 1
+  102 5
+  428 0
+  4 1
+  104 3
+  105
+  428 0
+  4 3
+  104 9 "named WINOPS_MENU"
+  105
+  428 6
+  930 1
+  104 49
+1000
+
+11 999
+  100 ACTION_RESIZE
+  17 "Hold down left mouse button and drag to resize this window in any"
+  17 "direction. Clicking right mouse button and dragging the mouse"
+  17 "around will move the window about instead."
+  102 5
+  428 0
+  103 1
+  4 1
+  104 4
+  105
+  4 3
+  104 3
+1000
+
+11 999
+  100 ACTION_RESIZE_H
+  17 "Hold down left mouse button and drag to resize this window"
+  17 "horizontally. Clicking right mouse button and dragging the mouse"
+  17 "around will move the window about instead."
+  102 5
+  428 0
+  103 1
+  4 1
+  104 11
+  105
+  4 3
+  104 3
+1000
+
+11 999
+  100 ACTION_RESIZE_V
+  17 "Hold down left mouse button and drag to resize this window"
+  17 "vertically. Clicking right mouse button and dragging the mouse"
+  17 "around will move the window about instead."
+  102 5
+  428 0
+  103 1
+  4 1
+  104 12
+  105
+  4 3
+  104 3
+1000
+
+11 999
+  100 ACTION_KILL
+  17 "Clicking left mouse button will kill this window. Clicking"
+  17 "right mouse button will forcibly destroy this window."
+  102 5
+  428 1
+  103 1
+  4 1
+  104 13
+  105
+  4 3
+  104 14
+1000
+
+11 999
+  100 ACTION_MAXH
+  17 "Toggle the height of this window between maximum screen height"
+  17 "and normal height."
+  102 5
+  428 1
+  103 1
+  930 1
+  104 50 conservative
+1000
+
+11 999
+  100 ACTION_MAXW
+  17 "Toggle the width of this window between maximum screen width"
+  17 "and normal width."
+  428 1
+  103 1
+  930 1
+  104 51 conservative
+1000
+
+11 999
+  100 ACTION_MAX
+  17 "Toggle the size of this window between maximum screen size"
+  17 "and normal size."
+  102 5
+  428 1
+  103 1
+  930 1
+  104 52 conservative
+1000
+
+11 999
+  100 ACTION_SEND_NEXT
+  17 "Send this Window to the next desktop."
+  102 5
+  428 1
+  103 1
+  930 1
+  104 53
+1000
+
+11 999
+  100 ACTION_SEND_PREV
+  17 "Send this Window to the previous desktop."
+  102 5
+  428 1
+  103 1
+  930 1
+  104 54
+1000
+
+11 999
+  100 ACTION_SNAPSHOT
+  17 "This button does nothing interesting."
+  102 5
+  930 1
+  428 1
+  104 55
+1000
+
+11 999
+  100 ACTION_SHADE
+  17 "This button toggles the shaded (Rolled up) state of this Window."
+  102 5
+  930 1
+  428 1
+  104 49
+1000
+
+11 999
+  100 ACTION_MENU
+  17 "Window Options Menu"
+  102 5
+  103 1
+  428 0
+  930 1
+  104 9 "named WINOPS_MENU"
+1000
+
+
+11 999
+  100 ACTION_ICONIFY
+  17 "Click on this button to Iconify (Minimize) this window."
+  102 5
+  103 1
+  428 1
+  4 1
+  104 46
+  105
+  428 0
+  4 3
+  104 9 "named WINOPS_MENU"
+1000
+
+11 999
+  100 ACTION_WINDOW_SLIDEOUT
+  17 "Click on this button to bring up a bar of more buttons to control"
+  17 "the Window with."
+  102 5
+  930 1
+  428 1
+  104 47 mainwindowslider
+1000
+
+11 999
+  100 ACTION_RAISE
+  17 "Click on this button to raise this window to the top."
+  102 5
+  428 1
+  103 1
+  930 1
+  104 5
+1000
+
+11 999
+  100 ACTION_LOWER
+  17 "Click here to lower this window."
+  102 5
+  428 1
+  103 1
+  930 1
+  104 6
+1000
+
+11 999
+  100 ACTION_STICK
+  17 "Click on this button to toggle the sticky (is visible on all"
+  17 "Desktops) state of this window. The border will look different"
+  17 "when the window is sticky."
+  102 5
+  428 1
+  103 1
+  930 1
+  104 20
+1000
+

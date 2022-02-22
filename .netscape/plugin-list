@@ -1,0 +1,4 @@
+PluginList Version 1
+/usr/lib/netscape/plugins/libnullplugin.so 949328959 *: .*:All types;
+pluginName=Netscape Default Plugin
+pluginDescription=The default plugin handles plugin data for mimetypes and extensions that are not specified and facilitates downloading of new plugins.

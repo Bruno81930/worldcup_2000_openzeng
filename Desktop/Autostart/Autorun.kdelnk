@@ -1,0 +1,11 @@
+# KDE Config File
+[KDE Desktop Entry]
+SwallowTitle=
+SwallowExec=
+BinaryPattern=
+Name=Autorun
+MimeType=
+Exec=/bin/bash -c "tt=`/sbin/pidof autorun`;if test -O /dev/console -a x$tt=x -a -x /usr/bin/autorun;then /usr/bin/autorun --interval=1000 --cdplayer=/usr/bin/kscd & fi"
+Icon=cd.xpm
+Path=
+Type=Application

@@ -1,0 +1,6 @@
+# KDE Config File
+[KDE Desktop Entry]
+URL=http://support.redhat.com
+Icon=/usr/share/pixmaps/redhat/shadowman-round-32.xpm
+Type=Link
+Name=Red Hat Support

@@ -1,0 +1,52 @@
+#! /bin/csh -f
+set OS = `uname -s`
+if      ( $OS =~ 'SunOS'  ) then
+  set OSV = `uname -r | sed 's/^\([0-9]\).*$/\1/'`
+  if	  ($OSV == 4) then
+    set OSTYPE = 'SunOS_4'
+  else if ($OSV == 5) then
+    set OSTYPE = 'SunOS_5'
+  else
+    set OSTYPE = 'default'
+  endif
+else if ( $OS =~ 'OSF1'  ) then
+  set OSTYPE = 'OSF1'
+else if ( $OS =~ 'Linux' ) then
+  set OSTYPE = 'Linux'
+else if ( $OS =~ 'IRIX' ) then
+  set OSTYPE = 'IRIX'
+else if ( $OS =~ 'FreeBSD'  ) then
+  set OSTYPE = 'default'
+else 
+  set OS = ` awk '{print $1}' /etc/motd`
+  if   ( $OS =~ 'NEWS-OS') then
+	set OSTYPE = 'NEWS'
+  else
+    set OSTYPE = 'default'
+  endif
+endif
+
+
+echo
+echo "Configuration Summary:" 
+echo "  OS type = $OSTYPE"
+
+
+echo -n "Creating Makefile..."
+
+foreach wdir (src client goalie) 
+
+  echo -n "[$wdir]"
+  pushd $wdir > /dev/null
+
+  if (-e Makefile) then
+    mv Makefile Makefile.bak
+  endif
+
+  sed "s|___OS_TYPE___|$OSTYPE|" < Makefile.tmpl > Makefile
+
+  popd > /dev/null
+end
+
+echo ""
+echo "Done."

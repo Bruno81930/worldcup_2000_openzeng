@@ -1,0 +1,643 @@
+ 
+ 
+ 
+ 
+ 
+
+ 
+
+
+
+
+
+ 
+
+
+
+
+
+ 
+
+
+
+
+ 
+
+
+
+
+
+ 
+
+
+ 
+
+
+
+
+
+
+
+ 
+
+
+
+
+
+
+ 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ 
+ 
+ 
+
+ 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	      
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ 
+
+
+ 
+
+
+
+
+ 
+
+
+
+
+
+
+ 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    
+
+
+1001 0
+
+2 999;  100 "APPS_SUBMENU";  706  "ROOT"
+711 "Other Apps"
+707 "NULL" "Eterm";  709          1  "Eterm"
+707 "NULL" "Xterm";  709          1  "xterm"
+707 "NULL" "RXVT" ;  709          1  "rxvt"
+707 "NULL" "Gnome Terminal";  709 1  "gnome-terminal"
+707 "NULL" "XMag";  709           1  "xmag"
+707 "NULL" "TkRat";  709          1  "tkrat"
+707 "NULL" "Exmh";  709           1  "exmh"
+707 "NULL" "Balsa";  709          1  "balsa"
+707 "NULL" "Gimp";  709           1  "gimp"
+707 "NULL" "Netscape";  709       1  "netscape"
+707 "NULL" "XV";  709             1  "xv"
+707 "NULL" "Electric Eyes";  709  1  "ee"
+707 "NULL" "GQview";  709         1  "gqview"
+707 "NULL" "eMusic";  709         1  "emusic"
+707 "NULL" "GQmpeg";  709         1  "gqmpeg"
+707 "NULL" "XawTV";  709          1  "xawtv"
+707 "NULL" "Xeyes";  709          1  "xeyes"
+707 "NULL" "Imlib Settings";  709 1  "imlib_config"
+707 "NULL" "TkMan";  709          1  "tkman"
+707 "NULL" "Xman";  709           1  "xman"
+1000
+
+ 
+2 999;  710 "BACKGROUNDS_MENU"  "ROOT_IMAGE" "dirscan"   /home/openzeng"/.enlightenment/backgrounds"
+711 "Backgrounds"
+1000
+
+2 999;  100 "DESKTOP_SUBMENU";  706  "ROOT"
+711 "Desktop Operations"
+708         "BACKGROUNDS_MENU" "NULL" "Backgrounds"
+707 "NULL" "Cleanup Desktop";  709        8       ""
+707 "NULL" "Goto Next Desktop";  709      71  "1"
+707 "NULL" "Goto Previous Desktop";  709  71  "-1"
+707 "NULL" "FX - Ripples";  709           73            "ripples"
+ 
+1000
+
+2 999;  710 "GNOME_SUBMENU"  "ROOT" "gnome"  "/usr/share/gnome/apps"
+711 "Gnome Apps"
+1000
+
+2 999;  710 "GNOME_USER_SUBMENU"  "ROOT" "gnome"   /home/openzeng"/.gnome/apps"
+711 "User Apps"
+1000
+
+2 999;  710 "THEMES_SUBMENU"  "ROOT" "themes"
+711 "Themes"
+1000
+
+2 999;  100 "ROOT_2";  706  "ROOT"
+711 "Enlightenment"
+708       "GNOME_SUBMENU" "NULL" "Gnome Apps"
+708        "GNOME_USER_SUBMENU" "NULL" "User Apps"
+708  "APPS_SUBMENU" "NULL" "Other Programs"
+708          "DESKTOP_SUBMENU" "NULL" "Desktop"
+708           "THEMES_SUBMENU" "NULL" "Themes"
+707 "NULL" "Enlightenment Configuration";  709  1  "e-conf"
+707 "NULL" "About Enlightenment";  709   72  ""
+707 "NULL" "Help";  709                  1   /usr/bin"/dox"  /usr/share/enlightenment"/E-docs"
+ 
+707 "NULL" "Restart Enlightenment";  709  7  "restart"
+ 
+1000
+
+2 999;  100 "WINOPS_H";  706  "EMPTY"
+707 "NULL" "Max Height Toggle";  709            50  "conservative"
+707 "NULL" "Available Max Height Toggle";  709  50  "available"
+707 "NULL" "Absolute Max Height Toggle";  709   50  ""
+1000
+
+2 999;  100 "WINOPS_W";  706  "EMPTY"
+707 "NULL" "Max Width Toggle";  709             51   "conservative"
+707 "NULL" "Available Max Width Toggle";  709   51   "available"
+707 "NULL" "Absolute Max Width Toggle";  709    51   ""
+1000
+
+2 999;  100 "WINOPS_WH";  706  "EMPTY"
+707 "NULL" "Max Size Toggle";  709              52    "conservative"
+707 "NULL" "Available Max Size Toggle";  709    52    "available"
+707 "NULL" "Absolute Max size Toggle";  709     52    ""
+1000
+
+2 999;  100 "WINOPS_SIZE";  706  "EMPTY"
+708  "WINOPS_H" "NULL" "Height"
+708  "WINOPS_W" "NULL" "Width"
+708  "WINOPS_WH" "NULL" "Size"
+1000
+
+2 999;  100 "WINOPS_DESKTOP";  706  "EMPTY"
+707 "NULL" "Move To Area Right";  709   68  " 1  0"
+707 "NULL" "Move To Area Left";  709    68  "-1  0"
+707 "NULL" "Move To Area Above";  709   68  " 0 -1"
+707 "NULL" "Move To Area Below";  709   68  " 0  1"
+1000
+
+
+2 999;  100 "WINOPS_SNAP";  706  "EMPTY"
+707 "NULL" "All Attributes";  709               55        ""
+707 "NULL" "Border Style";  709                 55        "border"
+707 "NULL" "Desktop";  709                      55        "desktop"
+707 "NULL" "Size";  709                         55        "size"
+707 "NULL" "Location";  709                     55        "location"
+707 "NULL" "Layer Level";  709                  55        "layer"
+707 "NULL" "Stickyness";  709                   55        "sticky"
+707 "NULL" "Shaded State";  709                 55        "shade"
+707 "NULL" "Forget Everything";  709            55        "none"
+ 
+ 
+1000
+
+2 999;  100 "WINOPS_LAYER";  706  "EMPTY"
+707 "NULL" "Below";  709               65        "2"
+707 "NULL" "Normal";  709              65        "4"
+707 "NULL" "Above";  709               65        "6"
+707 "NULL" "On Top";  709              65        "20"
+1000
+
+2 999;  710 "WINOPS_BORDERS"  "EMPTY" "borders"
+1000
+
+2 999;  100 "WINOPS_MENU";  706  "EMPTY"
+707 "NULL" "Close";  709                        13        ""
+707 "NULL" "Annihilate";  709                   14  ""
+707 "NULL" "Iconify";  709                      46     ""
+707 "NULL" "Raise";  709                        5       ""
+707 "NULL" "Lower";  709                        6       ""
+707 "NULL" "Shade/Unshade";  709                49       ""
+707 "NULL" "Stick/Unstick";  709                20       ""
+708              "WINOPS_DESKTOP" "NULL" "Desktop"
+708          "WINOPS_SIZE" "NULL" "Window Size" 
+708       "WINOPS_SNAP" "NULL" "Remember State" 
+708         "WINOPS_LAYER" "NULL" "Set Stacking" 
+708     "WINOPS_BORDERS" "NULL" "Set Border Style"
+1000
+
+ 
+
+
+
+
+
+
+
+ 
+ 
+ 

@@ -1,0 +1,7 @@
+D BIN                               	bin
+F CONFIGURE                         	configure
+D INCLUDE                           	include
+D LIB                               	lib
+F MAKEFILE                          	Makefile
+D MITSUHIDE                         	mitsuhide
+D SRC                               	src

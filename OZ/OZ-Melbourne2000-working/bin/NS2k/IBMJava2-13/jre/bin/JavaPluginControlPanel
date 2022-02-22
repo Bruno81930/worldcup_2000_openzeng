@@ -1,0 +1,12 @@
+#!/bin/sh
+# Shell Script to run the Java(tm) Plug-in control panel.
+
+ADIR=`dirname $0`
+
+export CLASSPATH
+CLASSPATH=$ADIR/../lib/javaplugin.jar:$ADIR/../lib/rt.jar
+
+#export THREADS_FLAG
+#THREADS_FLAG=green
+
+$ADIR/../bin/java sun.plugin.panel.ControlPanel 

@@ -1,0 +1,23 @@
+!
+!    @(#)XApplication	1.1 99/06/25
+!    XApplication FileDialog resources and Dialog default font
+!
+!#################################################################
+!#
+!#  Awt File Selection dialog resources
+!#
+!#################################################################
+*enableThinThickness:                   True
+*XmFileSelectionBox.fileFilterStyle:    XmFILTER_HIDDEN_FILES
+*XmFileSelectionBox.pathMode:           XmPATH_MODE_RELATIVE
+*XmFileSelectionBox.resizePolicy:       XmRESIZE_GROW
+
+*XmFileSelectionBox.filterLabelString: Filter
+*XmFileSelectionBox.dirListLabelString: Mappar
+*XmFileSelectionBox.dirTextLabelString: Ange sökvägen eller mappens namn:
+*XmFileSelectionBox.fileListLabelString: Filer
+*XmFileSelectionBox.okLabelString: OK
+*XmFileSelectionBox.applyLabelString: Uppdatera
+*XmFileSelectionBox.cancelLabelString: Avbryt
+*XmFileSelectionBox.selectionLabelString: Ange filnamnet:
+

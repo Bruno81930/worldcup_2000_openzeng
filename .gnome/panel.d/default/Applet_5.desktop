@@ -1,0 +1,11 @@
+
+[Desktop Entry]
+Name=Netscape Communicator
+Comment=Netscape Communicator World Wide Web Browser, E-mail and News client
+Name[en_US.ISO8859-1]=Netscape Communicator
+Comment[en_US.ISO8859-1]=Netscape Communicator World Wide Web Browser, E-mail and News client
+Exec=/usr/bin/netscape-communicator 
+Icon=/usr/share/pixmaps/netscape.png
+Terminal=false
+MultipleArgs=false
+Type=Application

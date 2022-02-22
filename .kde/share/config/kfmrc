@@ -1,0 +1,11 @@
+# KDE Config File
+[Version]
+KDEVersionMajor=1
+KDEVersionMinor=1
+KDEVersionRelease=5
+[KFM Misc Defaults]
+GridWidth=105
+Editor=kwrite
+Terminal=konsole
+[SM]
+URLs=

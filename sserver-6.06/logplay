@@ -1,0 +1,10 @@
+#! /bin/tcsh
+set CURR_PATH = `pwd`
+echo ${CURR_PATH}
+set tmpfile = /tmp/ss$$
+/home/software/sserver-6.06/logplayer/logplayer $1 -port 4000 & echo "$!" > $tmpfile
+sleep 1
+(cd /home/software/sserver-6.06/monitor ; ./soccermonitor -port 4000 -file ${CURR_PATH}/monitor.conf)
+kill -KILL `cat $tmpfile`
+rm -f $tmpfile
+

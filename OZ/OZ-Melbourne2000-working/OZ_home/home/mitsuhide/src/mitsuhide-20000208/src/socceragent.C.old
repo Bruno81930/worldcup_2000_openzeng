@@ -1,0 +1,708 @@
+#include <stdio.h>
+#include <string.h>
+#include <stdlib.h>
+#include <signal.h>
+#include <sys/time.h>
+#include "networkinterface.h"
+#include "command.h"
+#include "mymath.h"
+#include "vector.h"
+#include "utility.h"
+#include "seeinfo.h"
+#include "param.h"
+#include "commandinfo.h"
+#include "worldmodel.h"
+#include "socceragent.h"
+
+
+const PlayModeEntry pm_entry[] = PLAYMODE_TABLE;
+
+
+// 入出力割り込みハンドラ
+void sigio_handler(void) {
+  sagent->sigio_handler();
+}
+
+
+// タイマ割り込みハンドラ
+void sigalrm_handler(void) {
+  sagent->sigalrm_handler();
+}
+
+
+/*
+ * ==================================================
+ * Part : Outer
+ * ==================================================
+ */
+// 初期化
+void SoccerAgent::init(int argc, char** argv) {
+  // デフォルト値による初期化
+  host = HOST_NAME;
+  port = PORT_NUMBER;
+  version = VERSION_NUMBER;
+  team_name = TEAM_NAME;
+  goalie = GOALIE_FLAG;
+
+  // コマンドラインオプションによる初期化
+  if (argc > 1)
+    team_name = argv[1];
+  if (argc > 2)
+    if (!strcmp(argv[2], "goalie"))
+      goalie = true;
+  if (argc > 3)
+    host = argv[3];
+  if (argc > 4)
+    port = atoi(argv[4]);
+  if (argc > 5)
+    version = atof(argv[5]);
+
+  // ネットワークインターフェースの初期化
+  netif.connect(host, port);
+
+  // シグナルの初期化
+  struct sigaction sigact;
+  sigset_t sigalrmask, sigiomask;
+  sigemptyset(&sigalrmask);
+  sigaddset(&sigalrmask, SIGALRM);
+  sigemptyset(&sigiomask);
+  sigaddset(&sigiomask, SIGIO);
+  sigact.sa_flags = 0;
+  sigact.sa_mask = sigiomask;
+  sigact.sa_handler = (void (*)(int))::sigalrm_handler;
+  sigaction(SIGALRM, &sigact, NULL);
+  sigact.sa_mask = sigalrmask;
+  sigact.sa_handler = (void (*)(int))::sigio_handler;
+  sigaction(SIGIO, &sigact, NULL);
+  sigblock(sigmask(SIGALRM));
+  sigblock(sigmask(SIGIO));
+
+  // サッカーサーバとの接続
+  char msg[MESSAGE_LENGTH];
+  if (goalie) 
+    sprintf(msg, "(init %s (version %f) (goalie))", team_name, version);
+  else
+    sprintf(msg, "(init %s (version %f))", team_name, version);
+  while (!netif.send_message(msg));  
+}
+
+
+// メインループ
+void SoccerAgent::main_loop(void) {
+  while (worldmodel.get_playmode() != PM_TimeOver) {
+    sigpause(0);
+  }  
+}
+
+
+/*
+ * ==================================================
+ * Part : Inner 
+ * ==================================================
+ */
+// 入出力割り込みハンドラ
+void SoccerAgent::sigio_handler(void) {
+  char msg[MESSAGE_LENGTH];
+  while (netif.receive_message(msg, MESSAGE_LENGTH)) {
+    if (!strncmp(msg, "(init ", 6)) {
+      receive_init(msg);
+    } else if (!strncmp(msg, "(see ", 5)) {
+      receive_see(msg);
+    } else if (!strncmp(msg, "(sense_body ", 12)) {
+      receive_sensebody(msg);
+    } else if (!strncmp(msg, "(hear ", 6)) {
+      receive_hear(msg);
+    } else if (!strncmp(msg, "(debug ", 7)) {
+      effector.reset() ;
+      worldmodel.debug(msg) ;
+      // worldmodel.print() ;
+      think() ;
+      effector.execute() ;
+    } else {
+      fprintf(stderr, "illigal message : %s\n", msg);
+    }  
+  }
+}
+
+
+// タイマ割り込みハンドラ
+void SoccerAgent::sigalrm_handler(void) {
+  worldmodel.comm() ;
+  // worldmodel.print() ;
+  think() ;
+  effector.execute() ;
+}
+
+
+/*
+ * ==================================================
+ * Part : Init
+ * ==================================================
+ */
+// init受信時の処理
+void SoccerAgent::receive_init(char* msg) {
+  // 初期化情報の利用
+
+  // side, unum, playmode, t_score, o_scoreの取得
+  int n ;
+  char sc ;
+  char pmstring[MESSAGE_LENGTH] ;
+  sscanf(msg, "(init %c %d %s", &sc, &unum, &pmstring) ;
+
+  // sideのチェック
+  if (sc == 'l')
+    side = S_LEFT ;
+  else if (sc == 'r')
+    side = S_RIGHT ;
+  else {
+    fprintf(stderr, "illigal side : %c\n", sc) ;
+    exit(0) ;
+  }
+
+  // unumのチェック
+  if (unum < 1 || 11 < unum) {
+    fprintf(stderr, "illigal unum : %d\n", unum) ;
+    exit(0);
+  }
+
+  // playmode, t_score, o_scoreのチェック
+  PlayMode playmode = PM_Error ;
+  int t_score = 0 ;
+  int o_score = 0 ;
+  (void)next_token(pmstring);
+  if (!strncmp(pmstring, "goal_l", 6)) {
+    playmode = PM_AfterGoal_Left ;
+    if (side == S_LEFT)
+      sscanf(pmstring, "goal_l_%d", &t_score) ;
+    else
+      sscanf(pmstring, "goal_l_%d", &o_score) ;
+  } else if (!strncmp(pmstring, "goal_r", 6)) {
+    playmode = PM_AfterGoal_Right ;
+    if (side == S_LEFT)
+      sscanf(pmstring, "goal_r_%d", &o_score) ;
+    else
+      sscanf(pmstring, "goal_r_%d", &t_score) ;
+  } else {
+    for (int pm = 0; pm_entry[pm].name != NULL; pm++) {
+      if (!strcmp(pmstring, pm_entry[pm].name)) {
+        playmode = pm_entry[pm].id ;
+      }  
+    }
+  }
+  if (playmode == PM_Error)
+    printf("%s\n", pmstring) ;
+  
+  // ワールドモデルの初期化
+  worldmodel.init(side, team_name, unum) ;
+  worldmodel.set_playmode(playmode) ;
+  worldmodel.set_t_score(t_score) ;
+  worldmodel.set_o_score(o_score) ;
+
+  // エフェクタの初期化
+  effector.init(&netif, &worldmodel) ;
+
+  // その他
+  // 要整理
+  sync_see_flag = false;
+
+  n_sensebody = 5;
+  past_n_sensebody = 5;
+  sync = false;
+  type = VT_160;  
+}
+
+
+/*
+ * ==================================================
+ * Part : See
+ * ==================================================
+ */
+// see受信時の処理
+void SoccerAgent::receive_see(char* msg) {
+  // 同期seeメッセージ判定
+  int stime;
+  sscanf(msg, "(see %d ", &stime);  
+  
+  if (sync) {
+    if (type == VT_40) {
+      if (msec == ST_0)
+	msec = ST_40;
+      else if (msec == ST_40)
+	msec = ST_80;
+      else if (msec == ST_80)
+	msec = ST_20;
+      else if (msec == ST_20)
+	msec = ST_60;
+      else 
+	msec = ST_0;      
+    } else if (type == VT_80) {
+      if (msec == ST_0)
+	msec = ST_80;
+      else if (msec == ST_80)
+	msec = ST_60;
+      else if (msec == ST_60)
+	msec = ST_40;
+      else if (msec == ST_40)
+	msec = ST_20;
+      else 
+	msec = ST_0;
+    } else if (type == VT_160) {
+      if (msec == ST_0)
+	msec = ST_60;
+      else if (msec == ST_60)
+	msec = ST_20;
+      else if (msec == ST_20)
+	msec = ST_80;
+      else if (msec == ST_80)
+	msec = ST_40;
+      else 
+	msec = ST_0;
+    } else if (type == VT_320) {
+      if (msec == ST_0)
+	msec = ST_20;
+      else if (msec == ST_20)
+	msec = ST_40;
+      else if (msec == ST_40)
+	msec = ST_60;
+      else if (msec == ST_60)
+	msec = ST_80;
+      else 
+	msec = ST_0;
+    }
+
+    if (n_sensebody > 4) {
+
+    } else
+    if (type == VT_40) {
+      if (msec == ST_0) {
+        if (n_sensebody != 0)
+	  sync = false;
+      } else if (msec == ST_20) {
+        if (n_sensebody != 1)
+	  sync = false;
+      } else if (msec == ST_40) {
+        if (n_sensebody != 0)
+	  sync = false;
+      } else if (msec == ST_60) {
+        if (n_sensebody != 1)
+	  sync = false;
+      } else {
+        if (n_sensebody != 0)
+	  sync = false;
+      }
+    } else if (type == VT_80) {
+      if (msec == ST_0) {
+        if (n_sensebody != 0)
+	  sync = false;
+      } else if (msec == ST_20) {
+        if (n_sensebody != 1)
+	  sync = false;
+      } else if (msec == ST_40) {
+        if (n_sensebody != 1)
+	  sync = false;
+      } else if (msec == ST_60) {
+        if (n_sensebody != 1)
+	  sync = false;
+      } else {
+        if (n_sensebody != 1)
+	  sync = false;
+      }
+    } else if (type == VT_160) {
+      if (msec == ST_0) {
+        if (n_sensebody != 1)
+	  sync = false;
+      } else if (msec == ST_20) {
+        if (n_sensebody != 2)
+	  sync = false;
+      } else if (msec == ST_40) {
+        if (n_sensebody != 2)
+	  sync = false;
+      } else if (msec == ST_60) {
+        if (n_sensebody != 1)
+	  sync = false;
+      } else {
+        if (n_sensebody != 2)
+	  sync = false;
+      }
+    } else if (type == VT_320) {
+      if (msec == ST_0) {
+        if (n_sensebody != 3)
+	  sync = false;
+      } else if (msec == ST_20) {
+        if (n_sensebody != 4)
+	  sync = false;
+      } else if (msec == ST_40) {
+        if (n_sensebody != 3)
+	  sync = false;
+      } else if (msec == ST_60) {
+        if (n_sensebody != 3)
+	  sync = false;
+      } else {
+        if (n_sensebody != 3)
+	  sync = false;
+      }
+    }
+
+    if (worldmodel.get_time() < stime) {
+      if (msec != ST_0)
+        sync = false;
+    }
+   
+    if (!sync) {
+      printf("Can't receive message from the soccersever\n");
+    }
+  } else {
+    if (type == VT_40) {
+      if (n_sensebody == 0 && past_n_sensebody == 0) {
+	sync = true;
+	msec = ST_0;
+      }
+    } else if (type == VT_80) {
+      if (n_sensebody == 0) {
+	sync = true;
+	msec = ST_0;
+      }
+    } else if (type == VT_160) {
+      if (n_sensebody == 2 && past_n_sensebody == 2) {
+	sync = true;
+	msec = ST_20;
+      }
+    } else if (type == VT_320) {
+      if (n_sensebody == 4) {
+	sync = true;
+	msec = ST_20;
+      }
+    }
+
+    if (worldmodel.get_time() < stime) {
+      sync = true;
+      msec = ST_0;
+    }
+  }
+  past_n_sensebody = n_sensebody;
+  n_sensebody = 0;
+
+  // change_viewコマンドの発行
+  if (sync) {
+    send_change_view_command() ;
+  }
+
+  // seeメッセージの処理
+  if (sync && msec == ST_0) {
+    sync_see_flag = true;
+    strcpy(sync_see_msg, msg);
+  } else if (sync && msec != ST_0) {
+    see(msg);
+  } 
+  
+  effector.set_flag() ;
+}
+
+
+void SoccerAgent::see(char* msg) {
+  worldmodel.add_seeinfo(msg) ;
+}
+
+
+void SoccerAgent::send_change_view_command(void) 
+{
+  if (worldmodel.get_playmode() == PM_BeforeKickOff ||
+      worldmodel.get_playmode() == PM_AfterGoal_Left || 
+      worldmodel.get_playmode() == PM_AfterGoal_Right) {
+    if (worldmodel.get_vwidth() != VW_WIDE) {
+      worldmodel.set_vwidth(VW_WIDE) ;
+      netif.send_message("(change_view wide high)");
+    }
+    effector.set_neck_state(LOOK_AROUND) ;
+  } else if (worldmodel.ball.known_pos()) {
+    double dist = worldmodel.self.distance(worldmodel.ball);
+    if (dist <= 3.0) {
+      if (worldmodel.get_vwidth() != VW_NARROW) {
+	worldmodel.set_vwidth(VW_NARROW);
+	netif.send_message("(change_view narrow high)");
+      }
+      effector.set_neck_state(LOOK_AROUND) ;
+    } else if (dist <= 20.0 && fabs(normalize_angle(worldmodel.self.direction(worldmodel.ball) - worldmodel.self.get_angle_body())) <= 112.5) {
+      if (worldmodel.get_vwidth() != VW_NARROW) {
+	worldmodel.set_vwidth(VW_NARROW) ;
+	netif.send_message("(change_view narrow high)");
+      }
+      effector.set_neck_state(LOOK_BALL) ;
+    } else if (dist <= 40.0 && fabs(normalize_angle(worldmodel.self.direction(worldmodel.ball) - worldmodel.self.get_angle_body())) <= 135.0) {
+      if (worldmodel.get_vwidth() != VW_NORMAL) {
+	worldmodel.set_vwidth(VW_NORMAL);
+	netif.send_message("(change_view normal high)");
+      }
+      effector.set_neck_state(LOOK_AROUND) ;
+    } else {
+      if (worldmodel.get_vwidth() != VW_WIDE) {
+	worldmodel.set_vwidth(VW_WIDE) ;
+	netif.send_message("(change_view wide high)");
+      }
+      effector.set_neck_state(LOOK_AROUND) ;
+    }
+  } else {
+    if (worldmodel.get_vwidth() != VW_WIDE) {
+    worldmodel.set_vwidth(VW_WIDE);
+    netif.send_message("(change_view wide high)");
+    }
+    effector.set_neck_state(LOOK_AROUND) ;
+  }
+  if (worldmodel.get_vwidth() == VW_NARROW && worldmodel.get_vquality() == VQ_LOW)
+    type = VT_40;
+  else if (worldmodel.get_vwidth() == VW_NARROW && worldmodel.get_vquality() == VQ_HIGH ||
+           worldmodel.get_vwidth() == VW_NORMAL && worldmodel.get_vquality() == VQ_LOW)
+    type = VT_80;
+  else if (worldmodel.get_vwidth() == VW_NORMAL && worldmodel.get_vquality() == VQ_HIGH ||
+           worldmodel.get_vwidth() == VW_WIDE && worldmodel.get_vquality() == VQ_LOW)
+    type = VT_160;
+  else
+    type = VT_320; 
+  n_sensebody = 5;
+}
+
+/*
+ * ==================================================
+ * Part : Sensebody
+ * ==================================================
+ */
+// sensebody受信時の処理
+void SoccerAgent::receive_sensebody(char* msg) {
+  // コマンド発行のためのタイマを設定
+  set_timer(MARGIN_FOR_SEND_COMMAND) ;
+
+  // 同期seeメッセージ判定
+  n_sensebody++ ;
+
+  // 時刻
+  int time ;
+  sscanf(msg, "(sense_body %d ", &time) ;  
+  worldmodel.set_time(time) ;
+
+  // PM_BeforeKickOffの処理
+  if (worldmodel.get_time() == 1 || worldmodel.get_time() == 3001 || worldmodel.get_time() == 6001) {
+    worldmodel.set_stamina(STAMINA_MAX) ;
+    worldmodel.set_effort(EFFORT_MAX) ;
+    worldmodel.set_recovery(RECOVER_MAX) ;
+  }
+
+  // サイクルステップ
+  step() ;
+  worldmodel.reset() ;
+  effector.reset() ;
+
+  // seeメッセージの処理
+  if (sync_see_flag) {
+    sync_see_flag = false ;
+    see(sync_see_msg) ;
+  }
+  
+  // sensebodyメッセージの処理
+  sensebody(msg) ;
+}
+
+
+void SoccerAgent::set_timer(int msec)
+{
+  struct itimerval itv;
+  itv.it_interval.tv_sec  = 0;
+  itv.it_interval.tv_usec = 0;
+  itv.it_value.tv_sec     = 0;
+  itv.it_value.tv_usec    = (long)msec * 1000;
+  setitimer(ITIMER_REAL, &itv, NULL);  
+}
+
+
+void SoccerAgent::step(void)
+{
+  Vector player_pos = worldmodel.self.get_pos() ;
+  if (worldmodel.get_playmode() != PM_BeforeKickOff && 
+      worldmodel.get_time() != 0 && worldmodel.get_time() != 3000 && worldmodel.get_time() != 6000) {
+    // _inc();
+    worldmodel.self._inc() ;
+    worldmodel.self._turn() ;
+  } else {
+    // _turn();
+    worldmodel.self._turn() ;
+  }
+  Vector next_player_pos = worldmodel.self.get_pos();
+
+  if (worldmodel.get_playmode() != PM_BeforeKickOff && 
+      worldmodel.get_time() != 0 && worldmodel.get_time() != 3000 && worldmodel.get_time() != 6000) {
+    // _inc();
+    worldmodel.ball._inc(player_pos, next_player_pos);
+  } else {
+    // _turn();
+    worldmodel.ball._turn();
+  }
+
+  if (worldmodel.get_playmode() != PM_BeforeKickOff && 
+      worldmodel.get_time() != 0 && worldmodel.get_time() != 3000 && worldmodel.get_time() != 6000) {
+    // _inc();
+    for (int i = 0; i < N_PLAYER_PER_TEAM - 1; i++) {
+      worldmodel.teammate[i]._inc();
+    } 
+    for (int i = 0; i < N_PLAYER_PER_TEAM; i++) {
+      worldmodel.opponent[i]._inc();
+    } 
+  } else {
+    // _turn();
+    for (int i = 0; i < N_PLAYER_PER_TEAM - 1; i++) {
+      worldmodel.teammate[i]._turn();
+    } 
+    for (int i = 0; i < N_PLAYER_PER_TEAM; i++) {
+      worldmodel.opponent[i]._turn();
+    } 
+  }
+
+  if (worldmodel.get_stamina() <= STAMINA_MAX * RECOVER_DEC_THR) {
+    if (worldmodel.get_recovery() > RECOVER_MIN)
+      worldmodel.set_recovery(worldmodel.get_recovery() - RECOVER_DEC) ;
+  }
+}
+
+
+void SoccerAgent::sensebody(char* msg)
+{
+  char *next, *param;
+  double tmp_head_angle;
+
+  int time ;
+  sscanf(msg, "(sense_body %d ", &time);
+  worldmodel.set_time(time) ;
+  msg = next_token(msg + 1);
+  msg = next_token(msg);  
+
+  while(msg != NULL) {
+    next = next_token(msg);
+    msg++;
+    param = next_token(msg);
+    
+    if (!strcmp(msg,"view_mode")) {
+      /*
+      tmp = next_token(param) ;
+      if(!strcmp(param,"high")) {
+	vquality = VQ_HIGH;
+      } else {
+	vquality = VQ_LOW;
+      }
+      if(!strcmp(tmp,"wide)")) {
+	vwidth = VW_WIDE;
+      } else if(!strcmp(tmp,"normal)")) {
+	vwidth = VW_NORMAL;
+      } else {
+	vwidth = VW_NARROW;
+      }
+      */
+    } else if (!strcmp(msg,"stamina")) {
+      double stamina, effort;
+      sscanf(param, "%lf %lf)", &stamina, &effort);
+      worldmodel.set_stamina(stamina) ;
+      worldmodel.set_effort(effort) ;
+    } else if (!strcmp(msg,"speed")) {
+      /* sscanf(param,"%lf",&speed) ; */
+    } else if (!strcmp(msg,"head_angle")) {
+      /*
+      (void)next_token(param);
+      tmp_head_angle = atof(param);
+      if (fabs(tmp_head_angle - worldmodel.angle_neck) > 2.0)
+        printf("%d %f %f\n", time, worldmodel.angle_neck, tmp_head_angle);
+	*/
+    } else if (!strcmp(msg,"kick")) {
+      /* sscanf(param,"%d",&count_kick) ; */
+    } else if (!strcmp(msg,"dash")) {
+      /* sscanf(param,"%d",&count_dash) ; */
+    } else if (!strcmp(msg,"turn")) {
+      /* sscanf(param,"%d",&count_turn) ; */
+    } else if (!strcmp(msg,"say")) {
+      /* sscanf(param,"%d",&count_say) ; */
+    } else if (!strcmp(msg,"turn_neck")) {
+      /* sscanf(param,"%d",&count_turn_neck) ; */
+    } else {
+      printf("sensebody() : Illegal sense_body info:(%s %s\n", msg, param);
+      return;
+    } 
+    msg = next;
+  }
+}
+
+/*
+ * ==================================================
+ * Part : Hear
+ * ==================================================
+ */
+// hear受信時の処理
+void SoccerAgent::receive_hear(char* msg) {
+  int dumy ;
+  char type[MESSAGE_LENGTH] ;
+
+  sscanf(msg, "(hear %d %s", &dumy, type) ;
+  if (!strcmp(type, "referee")) {
+    hear_referee(msg);
+  } else if (!strcmp(type, "say")) {
+    ;
+  } else {
+    hear_say(msg);
+  }
+}
+
+
+void SoccerAgent::hear_referee(char* msg) 
+{
+  msg = next_token(msg + 1) ;
+  msg = next_token(msg) ;
+  msg = next_token(msg) ;
+  (void)next_token(msg) ;  
+
+  int t_score, o_score ;
+  PlayMode playmode = PM_Error ;
+  if (!strncmp(msg, "goal_l", 6)) {
+    playmode = PM_AfterGoal_Left ;
+    if (side == S_LEFT) {
+      sscanf(msg, "goal_l_%d", &t_score) ;
+      worldmodel.set_t_score(t_score) ;
+    } else {
+      sscanf(msg, "goal_l_%d", &o_score);
+      worldmodel.set_o_score(o_score) ;
+    }
+  } else if (!strncmp(msg, "goal_r", 6)) {
+    playmode = PM_AfterGoal_Right ;
+    if (side == S_LEFT) {
+      sscanf(msg, "goal_r_%d", &o_score) ;
+      worldmodel.set_o_score(o_score) ;
+    } else {
+      sscanf(msg, "goal_r_%d", &t_score);
+      worldmodel.set_t_score(t_score) ;
+    }
+  } else {
+    for (int pm = 0; pm_entry[pm].name != NULL; pm++) {
+      if (!strcmp(msg, pm_entry[pm].name)) {
+        playmode = pm_entry[pm].id ;
+      }  
+    }
+  }
+  if (playmode == PM_Error)
+    printf("%s\n", msg);
+
+  worldmodel.set_playmode(playmode) ;
+}
+
+
+void SoccerAgent::hear_say(char* msg)
+{
+
+}
+
+
+/*
+ * ==================================================
+ * Part : 
+ * ==================================================
+ */
+void SoccerAgent::think(void) {
+  // 派生クラスで定義する
+}
+
+
+
+

@@ -1,0 +1,68 @@
+#!/bin/sh
+#
+# Start Script For Open Zeng
+
+#  1: savior
+#  2: dajare
+#  3: jaist
+#  4: NIT-Stones
+#  5: gullwing
+#  6: gullwing
+#  7: dajare
+#! 8: Zeng-SMF
+#! 9: Zeng-SMF
+#!10: Sfidante
+#!11: mitsuhide
+
+PATH=${HOME}/jdk/bin:${PATH} && export PATH
+
+
+sleeptime=2000000
+
+host="localhost"
+port="6000"
+teamname="OZ"
+
+while [ $# -gt 0 ]
+do
+    case $1 in
+    -h*)
+	host=$2
+	shift 1
+	;;
+    -p*)
+	port=$2
+	shift 1
+	;;
+    -t*)
+	teamname=$2
+	shift 1
+	;;
+    esac
+    shift 1
+done
+
+#  #	OZ Number 7
+#  echo "OZ Number 7: dajare"
+#  ./sample $teamname f $host 1>/dev/null 2>&1 &
+#  ./usleep $sleeptime
+
+#	OZ Number 8
+echo "OZ Number 8: Zeng-SMF"
+./Zeng00-TM -h $host -t $teamname -p $port -r 7 1>/dev/null 2>&1
+./usleep $sleeptime
+
+#	OZ Number 9
+./Zeng00-TM -h $host -t $teamname -p $port -r 8 1>/dev/null 2>&1
+echo "OZ Number 9: Zeng-SMF"
+./usleep $sleeptime
+
+#	OZ Number 10
+echo "OZ Number 10: Sfidante"
+./Sfidante $teamname nongoalie $host $port 1>/dev/null 2>&1 &
+./usleep $sleeptime
+
+
+#	OZ Number 11
+./mitsuhide $teamname nongoalie $host $port 5.25 1>/dev/null 2>&1 &
+echo "OZ Number 11: mitsuhide"

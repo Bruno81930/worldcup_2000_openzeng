@@ -1,0 +1,40 @@
+#!/bin/sh 
+
+host="localhost"
+port="6000"
+team="Zeng00"
+role="9"
+
+while [ $# -gt 0 ]
+do
+    case $1 in
+    -h*)
+	host=$2
+	shift 1
+	;;
+    -p*)
+	port=$2
+	shift 1
+	;;
+    -t*)
+	team=$2
+	shift 1
+	;;
+    -g)
+	goalie=1
+	;;
+    -r)
+	role=$2
+	shift 1
+	;;
+    esac
+    shift 1
+done
+
+    ./field_player \
+	    -file client.conf.Zeng00 -file server.conf.Zeng00 \
+	    -team_name $team \
+	    -host $host \
+	    -role $role \
+	    -port $port 1> /dev/null 2>&1 &
+done

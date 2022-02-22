@@ -1,0 +1,35 @@
+#!/bin/sh
+
+CURR_PATH=`pwd`
+SSERVER_PATH=/home/software/sserver-6.06
+
+echo ""
+
+SSERVER_CONF=${SSERVER_PATH}/server.conf
+MONITOR_CONF=${SSERVER_PATH}/monitor.conf
+
+if [ -r ${CURR_PATH}/server.conf ]; then
+	SSERVER_CONF=${CURR_PATH}/server.conf
+fi
+echo "Using ${SSERVER_CONF}"
+
+if [ -r ${CURR_PATH}/monitor.conf ]; then
+	MONITOR_CONF=${CURR_PATH}/monitor.conf
+fi
+echo "Using ${MONITOR_CONF}"
+
+echo ""
+
+(cd ${SSERVER_PATH}/server ; \
+./soccerserver -file ${SSERVER_CONF} &)
+
+sleep 1
+
+(cd ${SSERVER_PATH}/monitor ; \
+./soccermonitor -file ${MONITOR_CONF})
+
+if test -x /usr/ucb/ps ; then 
+  kill `/usr/ucb/ps ax | grep soccerserver | grep -v grep | awk '{print $1}'`
+else
+  kill `ps ax | grep soccerserver | grep -v grep | awk '{print $1}'`
+fi

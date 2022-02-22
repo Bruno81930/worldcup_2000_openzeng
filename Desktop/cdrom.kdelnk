@@ -1,0 +1,16 @@
+# KDE Config File
+[KDE Desktop Entry]
+Name=CD-ROM
+UnmountIcon=cdrom_unmount.xpm
+Comment[pt]=Dispositivo com Sistema de Ficheiros
+Comment[fi]=Tiedostosysteemi
+Comment[fr]=Périphérique avec système de fichiers
+MountPoint=
+Comment=File System Device
+Comment[pl]=Urz±dzenie
+Icon=cdrom_mount.xpm
+Dev=/dev/cdrom
+ReadOnly=0
+FSType=Default
+Comment[it]=Dispositivo con  Sistema File
+Type=FSDevice

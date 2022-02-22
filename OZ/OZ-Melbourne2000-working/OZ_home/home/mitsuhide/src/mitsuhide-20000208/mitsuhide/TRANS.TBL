@@ -1,0 +1,7 @@
+F MAIN.C                            	main.C
+F MAIN.O                            	main.o
+F MAKEFILE                          	Makefile
+F MAKEFILE.TMPL                     	Makefile.tmpl
+F MYAGENT.C                         	myagent.C
+F MYAGENT.H                         	myagent.h
+F MYAGENT.O                         	myagent.o

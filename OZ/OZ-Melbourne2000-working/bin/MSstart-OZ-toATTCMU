@@ -1,0 +1,201 @@
+#!/bin/sh
+#
+# Start Script For Open Zeng
+
+# J.Nishino 2000/8/27 at Melbourne
+# with all players
+# this file is delived from Start-OZ-0 at Hakodate
+
+#  1: savior	GK
+#  2: dajare	CBMF
+#  3: tipl	RDF
+#  4: NS2k	LMF
+#  5: Castol	RMF
+#  6: nurikabe	LDF
+#  7: yukichi	CMF
+#  8: Zeng-SMF	LFW
+#  9: CZ125	RFW
+# 10: Sfidante	CDF
+# 11: mitsuhide	CFW
+
+PATH=${HOME}/jdk/bin:${PATH} && export PATH
+
+sleeptime=2000000
+
+host="localhost"
+port="6000"
+teamname="OZ"
+
+while [ $# -gt 0 ]
+do
+    case $1 in
+    -h*)
+	host=$2
+	shift 1
+	;;
+    -p*)
+	port=$2
+	shift 1
+	;;
+    -t*)
+	teamname=$2
+	shift 1
+	;;
+    esac
+    shift 1
+done
+
+#--------------------------------------
+# invoking procedures
+
+start-savior () {
+	# OZ Number 1
+	echo "GK: savior"
+	./savior -h $host -t $teamname -p $port 1>/dev/null 2>&1 &
+	./usleep $sleeptime
+}
+
+start-dajare () {
+	# OZ Number 2
+	echo "CMF: dajare"
+	./sample $teamname f $host 1>/dev/null 2>&1 &
+	./usleep $sleeptime
+}
+
+start-tipl () {
+	echo "RDF: Tipl"
+	tipl  $teamname nongoalie $host $port 5.25 1>/dev/null 2>&1 &
+	./usleep $sleeptime
+}
+
+start-NS2k () {
+	# OZ Number 4
+	echo "LMF: NS2k"
+#	./NS2k/IBMJava2-13/jre/bin/java Kakitsubata -OZ -h $host -t $teamname 
+
+	echo "ok? [y/d] d for dummy(dajare)"
+	read yesno
+	
+	if [ x$yesno = xy ]
+	then
+		echo "ok we use NS2k vir networking"
+	else		
+		echo "ok Use a dajare for dummy NS2k"
+		start-dajare
+	fi
+	./usleep $sleeptime
+}
+
+start-CZ125 () {
+	echo "RFW: gullwing"
+	# OZ Number 5
+	./gullwing $host $port $teamname 1>/dev/null 2>&1 &
+	./usleep $sleeptime
+}
+
+start-yukichi () {
+	echo "CMF: yukichi"
+	./yukichi \
+		-file client.conf.yukichi \
+		-file server.conf.yukichi \
+		-host $host \
+		-team_name $teamname  1> /dev/null 2>&1 &
+	./usleep $sleeptime
+}
+
+start-Zeng00TM-r7 () {
+	# OZ Number 8
+	echo "LFW: Zeng-SMF"
+	./Zeng00-TM -h $host -t $teamname -p $port -r 7 1>/dev/null 2>&1
+	./usleep $sleeptime
+}
+
+start-Zeng00TM-r8 () {
+	# OZ Number 9
+	echo "RFW: Zeng-SMF"
+	./Zeng00-TM -h $host -t $teamname -p $port -r 8 1>/dev/null 2>&1
+	./usleep $sleeptime
+}
+
+start-Sfidante (){
+	# OZ Number 10
+	echo "CDF: Sfidante"
+	./Sfidante $teamname nongoalie $host $port 1>/dev/null 2>&1 &
+	./usleep $sleeptime
+}
+
+start-mitsuhide () {
+	# OZ Number 11
+	echo "CFW: mitsuhide"
+	./mitsuhide $teamname nongoalie $host $port 5.25 1>/dev/null 2>&1 &
+	./usleep $sleeptime
+}
+
+start-gnez () {
+	echo "LDF:nurikabe"
+	./gnez \
+		-host $host -team_name $teamname -port $port -role 4 \
+		-file server.conf.Zeng00 \
+		-file client.conf.Zeng00 1> /dev/null 2>&1 &
+        ./usleep $sleeptime
+}
+
+start-gemini () {
+	echo "RMF:gz"
+	./gz/Gemini -p $port -s $host -t $teamname 1> /dev/null 2>&1 &
+        ./usleep $sleeptime
+}
+#--------------------------------------------------------------------
+# start players body
+
+#1
+echo -n "OZ Number 1:"
+start-savior
+#2
+echo -n "OZ Number 2:"
+start-dajare
+#3
+echo -n "OZ Number 3:"
+start-tipl
+#4
+echo -n "OZ Number 4:(LMF)"
+start-NS2k
+# start-dajare
+# start-gnez
+# start-CZ125
+#5 for castol(Gemini)
+echo -n "OZ Number 5:"
+start-gemini
+#6 for nurikabe
+echo -n "OZ Number 6:"
+start-gnez
+#7 should be Yukichi(11Monkeys)
+echo -n "OZ Number 7:(CMF)"
+start-yukichi
+#start-CZ125
+#8
+echo -n "OZ Number 8:"
+start-Zeng00TM-r7
+#9
+echo -n "OZ Number 9:"
+			# start-Zeng00TM-r8
+start-CZ125
+#10 Number 10 is reseved for kumanosuke(Sfidante)
+echo -n "OZ Number 10:"
+start-Sfidante
+#11
+echo -n "OZ Number 11:"
+start-mitsuhide
+
+# ---- MEMORANDUM -------
+#  1: savior	GK
+#  2: dajare	CBMF
+#  3: tipl	RDF
+#  4: NS2k	LMF
+#  5: Castol	RMF
+#  6: nurikabe	LDF
+#  7: yukichi	CMF
+#  8: Zeng-SMF	LFW
+#  9: CZ125	RFW
+# 10: Sfidante	CDF
+# 11: mitsuhide	CFW

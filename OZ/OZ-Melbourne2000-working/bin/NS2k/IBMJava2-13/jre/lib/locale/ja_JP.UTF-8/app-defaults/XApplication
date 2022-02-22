@@ -1,0 +1,35 @@
+!
+!    @(#)XApplication	1.1 99/03/09
+!    XApplication FileDialog resources and Dialog default font
+!
+
+!#################################################################
+!#
+!#  For JAVA AWT (FileDialog and Dialog) Default Font
+!#
+!#################################################################
+AWTapp*fontList: \
+        -ricoh-hg gothic b-medium-r-normal--*-120-*-*-*-*-*-*;\
+        -morisawa-gothic medium bbb-medium-r-normal-sans-*-120-*-*-*-*-*-*;\
+        -*-gothic-medium-r-normal--*-120-*-*-*-*-*-*:
+
+!#################################################################
+!#
+!#  Awt File Selection dialog resources
+!#
+!#################################################################
+*enableThinThickness:                   True
+*XmFileSelectionBox.fileFilterStyle:    XmFILTER_HIDDEN_FILES
+*XmFileSelectionBox.pathMode:           XmPATH_MODE_RELATIVE
+*XmFileSelectionBox.resizePolicy:       XmRESIZE_GROW
+
+*XmFileSelectionBox.title:	単語ファイル選択
+*XmFileSelectionBox.filterLabelString: フィルタ
+*XmFileSelectionBox.dirListLabelString: ディレクトリ
+*XmFileSelectionBox.dirTextLabelString: ディレクトリ
+*XmFileSelectionBox.dirTextLabelString:	パス名(フォルダ名)を入力してください:
+*XmFileSelectionBox.fileListLabelString:	ファイル
+*XmFileSelectionBox.okLabelString: 了解
+*XmFileSelectionBox.applyLabelString: 更新
+*XmFileSelectionBox.cancelLabelString: 取消し
+*XmFileSelectionBox.selectionLabelString: ファイル名を入力してください:

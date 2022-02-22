@@ -1,0 +1,13 @@
+#!/bin/csh -fx
+
+javac serverconfP/*.java
+javac genericP/*.java
+javac objectP/*.java
+javac stokenizerP/*.java
+javac parserP/*.java
+javac info_managerP/*.java
+javac playerP/*.java
+javac brainP/*.java
+javac Kakitsubata.java
+
+

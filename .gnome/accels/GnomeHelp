@@ -1,0 +1,15 @@
+; gnome-help-browser GtkItemFactory rc-file         -*- scheme -*-
+; this file is an automated menu-path dump
+;
+;(menu-path "<GnomeHelp>/File/Close" "<Control>w")
+;(menu-path "<GnomeHelp>/Window/Bookmarks" "")
+;(menu-path "<GnomeHelp>/Help/About..." "")
+;(menu-path "<GnomeHelp>/File" "")
+;(menu-path "<GnomeHelp>/Window/History" "")
+;(menu-path "<GnomeHelp>/Window" "")
+;(menu-path "<GnomeHelp>/Settings/Preferences..." "")
+;(menu-path "<GnomeHelp>/Help" "")
+;(menu-path "<GnomeHelp>/File/New Window" "")
+;(menu-path "<GnomeHelp>/File/Add Bookmark" "")
+;(menu-path "<GnomeHelp>/Settings" "")
+;(menu-path "<GnomeHelp>/File/Exit" "<Control>q")

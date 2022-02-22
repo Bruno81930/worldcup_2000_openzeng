@@ -1,0 +1,8 @@
+#!/bin/sh
+
+killall java
+killall sample
+killall mitsuhide
+killall Sfidante
+killall tipl
+killall Gemini

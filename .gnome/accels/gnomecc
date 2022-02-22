@@ -1,0 +1,8 @@
+; gnomecc GtkItemFactory rc-file         -*- scheme -*-
+; this file is an automated menu-path dump
+;
+;(menu-path "<gnomecc>/File" "")
+;(menu-path "<gnomecc>/Help/About..." "")
+;(menu-path "<gnomecc>/File/Exit" "<Control>q")
+;(menu-path "<gnomecc>/Help" "")
+;(menu-path "<gnomecc>/Help/Help" "")

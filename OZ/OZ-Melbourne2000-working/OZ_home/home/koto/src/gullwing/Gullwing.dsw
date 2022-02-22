@@ -1,0 +1,45 @@
+Microsoft Developer Studio Workspace File, Format Version 6.00
+# 警告: この椣現欲綾 箕荷 を編集または削除しないでください!
+
+###############################################################################
+
+Project: "Gullwing"=.\Gullwing.dsp - Package Owner=<4>
+
+Package=<5>
+{{{
+    begin source code control
+    "$/Gullwing", BAAAAAAA
+    .
+    end source code control
+}}}
+
+Package=<4>
+{{{
+}}}
+
+###############################################################################
+
+Project: "console"=.\console.dsp - Package Owner=<4>
+
+Package=<5>
+{{{
+}}}
+
+Package=<4>
+{{{
+}}}
+
+###############################################################################
+
+Global:
+
+Package=<5>
+{{{
+}}}
+
+Package=<3>
+{{{
+}}}
+
+###############################################################################
+

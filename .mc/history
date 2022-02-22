@@ -1,0 +1,17 @@
+
+[Dir Hist /mnt/cdrom]
+0=/mnt/cdrom
+1=/mnt/cdrom/Zeng00
+2=/mnt/cdrom/Zeng00/shimora
+3=/mnt/cdrom/Zeng00/shimora/executable
+4=/mnt/cdrom
+
+[Dir Hist /mnt/floppy]
+0=/mnt/floppy
+
+[Dir Hist /home/openzeng]
+0=/home/openzeng
+
+[Dir Hist Home directory]
+0=/home/openzeng
+1=/home/openzeng/Desktop

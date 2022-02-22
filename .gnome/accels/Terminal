@@ -1,0 +1,22 @@
+; gnome-terminal GtkItemFactory rc-file         -*- scheme -*-
+; this file is an automated menu-path dump
+;
+;(menu-path "<Terminal>/File" "")
+;(menu-path "<Terminal>/Settings/Reset Terminal" "")
+;(menu-path "<Terminal>/File/Hide menubar" "")
+;(menu-path "<Terminal>/Settings/Preferences..." "")
+;(menu-path "<Terminal>/-Orphan/New terminal" "")
+;(menu-path "<Terminal>/-Orphan/Reset and Clear" "")
+;(menu-path "<Terminal>/File/Close terminal" "")
+;(menu-path "<Terminal>/-Orphan/Preferences..." "")
+;(menu-path "<Terminal>/Settings" "")
+;(menu-path "<Terminal>/Help/About..." "")
+;(menu-path "<Terminal>/-Orphan/Reset Terminal" "")
+;(menu-path "<Terminal>/-Orphan/Show menubar" "")
+;(menu-path "<Terminal>/Settings/Color selector..." "")
+;(menu-path "<Terminal>/File/New terminal" "")
+;(menu-path "<Terminal>/Settings/Reset and Clear" "")
+;(menu-path "<Terminal>/-Orphan/Secure keyboard" "")
+;(menu-path "<Terminal>/Edit" "")
+;(menu-path "<Terminal>/Edit/Paste" "<Control>v")
+;(menu-path "<Terminal>/Help" "")

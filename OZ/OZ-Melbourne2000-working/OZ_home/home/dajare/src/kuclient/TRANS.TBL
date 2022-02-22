@@ -1,0 +1,10 @@
+D CLIENT                            	client
+F CONFIGURE                         	configure
+D GOALIE                            	goalie
+F GO_CLIENTS.CSH                    	go_clients.csh
+D INCLUDE                           	include
+F KILL_CLIENTS.CSH                  	kill_clients.csh
+D LIB                               	lib
+F MAKEFILE                          	Makefile
+F README                            	README
+D SRC                               	src

@@ -1,0 +1,13 @@
+# Usage of client programs of KU-Sakura2, Kinki University team.
+ 
+How to install?
+  1) ./configure
+  2) ./make
+       * Please do 'make clean' before doing 'make', when reinstalling.
+
+How to run client programs ?
+  1) ./go_clients.csh  SERVER_HOST
+
+How to stop and kill all client programs?
+  1) ./kill_clients.csh 
+

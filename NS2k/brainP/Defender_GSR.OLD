@@ -1,0 +1,636 @@
+// Defender_GSR.java
+
+package brainP;
+
+import genericP.*;
+// import brainP.*;
+import playerP.*;
+
+
+/********************************************************/
+/*         Defender_GSR    DF_G エージェント            */
+/********************************************************/
+
+public class Defender_GSR extends Brain{
+
+  int lastCatchTime,lastGoalKickTime;
+  static boolean search  = Generic.NS_FALSE;
+  static int move = 5;
+
+  String selfStrategy;
+
+/***************************************************************************/
+
+  public Defender_GSR(Player p){
+    super(p);
+    lastCatchTime = 0;
+    lastGoalKickTime = 0;
+  }
+
+/***************************************************************************/
+
+  public void playOn(){
+    double dashPower = Generic.STAMINA_INC_MAX;
+    boolean sayBallString = Generic.NS_FALSE;
+    boolean sayStrategy = Generic.NS_FALSE;
+    String currentStrategy = super.infoManager.getSelfStrategy();
+    // double strategyCertainty = super.infoManager.getStrategyCertainty();
+    double pointDiff = super.infoManager.getOurPoint()
+	               - super.infoManager.getOpponentsPoint();
+    NSobject openDir = new NSobject();  // NS object! openDir
+    Point recXY = new Point();  // Point! recX, recY
+
+    int currentTime = super.infoManager.getBodyTime();
+
+
+    if(pointDiff < 0)
+      dashPower = Generic.STAMINA_INC_MAX * 2;
+
+
+    if(super.infoManager.hasBallInfo()){  //  ボール情報をもっている
+      double ballDir = super.infoManager.getBallDir();
+      double ballX = super.infoManager.getBallX();
+      double ballY = super.infoManager.getBallY();
+
+      if(ballX < -45){
+        Generic.getDivisionPoint(ballX,ballY,- Generic.FIELD_X_WIDTH * 0.5,
+                                                         0,3,1,super.tmpXY);
+      }
+      else if(ballX < -30){
+        Generic.getDivisionPointByDX(ballX,ballY,- Generic.FIELD_X_WIDTH * 0.5,
+                                                         0,super.tmpXY);
+      }
+      else {
+        super.tmpXY.setPointX(super.startX);
+        super.tmpXY.setPointY(super.startY);
+      }
+
+      if(ballX < -15)
+        dashPower = Generic.STAMINA_INC_MAX * 2;
+
+      if(super.infoManager.isCatchable() 
+           && super.infoManager.inPenaltyArea()
+	   && currentTime - this.lastGoalKickTime > 10){
+        if(!super.infoManager.isBallTrap())
+          super.player.trapBall();
+        else {
+          double nextBallDir = super.infoManager.getPredBallDir(1);
+          super.player.catchBall(nextBallDir);
+          //super.player.catchBall(ballDir);
+	}
+      }
+      else if(super.infoManager.isKickable()){ //  ボールを持っている
+        if(super.infoManager.getStrategyFlag()){ //  戦略の提示があった
+          String strategyPlan = super.infoManager.getStrategyPlan();
+          int planner = super.infoManager.getSPlanner();
+
+          if((strategyPlan.equals("ballClear") && pointDiff <= 0) || 
+             (strategyPlan.equals("ballClear") && 
+                                   ballX < - Generic.FIELD_X_WIDTH * 0.25)){ 
+            //  チームが同点または負けている,または
+            //  フィールドの1/4こえてる場合,ボールクリア採用
+            super.infoManager.setSelfStrategy(strategyPlan,"plan");
+	  }
+        }
+        else { //  自己の戦略の再評価
+          if(currentStrategy.equals("ballClear") && pointDiff <= 0){ 
+            //  チームが同点または負けている場合,ボールクリア継続
+            super.infoManager.setSelfStrategy(currentStrategy,"plan");
+	  }
+          else { //  その他の戦略を提案
+            if(ballX < - Generic.FIELD_X_WIDTH * 0.25)
+              //  フィールドの1/4こえてる場合,ボールクリア提案
+              super.infoManager.setSelfStrategy("ballClear","plan");
+	  }
+        }
+
+        selfStrategy = super.infoManager.getSelfStrategy();
+        sayStrategy = Generic.NS_TRUE;  //  発言権あり
+
+        if(selfStrategy.equals("ballClear")){  //  協調戦略"ballClear"
+          if(super.infoManager.getPosOfReceiver(0,70,35,recXY) < 0.9){
+      	    super.player.shot(recXY.getPointX(),recXY.getPointY(),10);
+	    super.player.lookAtBall();
+            sayBallString = Generic.NS_TRUE;
+	  }
+          else {
+            super.infoManager.getDirOfClearSpace(0,70,25,2,openDir);
+	    super.player.shot(super.infoManager.getX() 
+			    + 25 * Math.cos(Generic.digToRad(openDir.getNS())),
+			    super.infoManager.getY() 
+			    + 25 * Math.sin(Generic.digToRad(openDir.getNS())),
+			    10);
+	    super.player.lookAtBall();
+            sayBallString = Generic.NS_TRUE;
+	  }
+        }
+        else { //  その他の戦略
+          if(super.infoManager.getPosOfReceiver(0,70,35,recXY) < 0.9){
+      	    super.player.shot(recXY.getPointX(),recXY.getPointY(),10);
+	    super.player.lookAtBall();
+            sayBallString = Generic.NS_TRUE;
+	  }
+          else {
+            super.infoManager.getDirOfOpenSpace(0,70,25,2,openDir);
+	    super.player.shot(super.infoManager.getX() 
+			    + 25 * Math.cos(Generic.digToRad(openDir.getNS())),
+			    super.infoManager.getY() 
+			    + 25 * Math.sin(Generic.digToRad(openDir.getNS())),
+			    10);
+	    super.player.lookAtBall();
+            sayBallString = Generic.NS_TRUE;
+	  }
+        }
+      }
+      else {        //  ボールを持っていない場合
+        if(super.infoManager.getStrategyFlag()){ //  戦略の提示があった
+          String strategyPlan = super.infoManager.getStrategyPlan();
+          int planner = super.infoManager.getSPlanner();
+
+          if((strategyPlan.equals("ballClear") && pointDiff <= 0) || 
+             (strategyPlan.equals("ballClear") && 
+                        ballX < - Generic.FIELD_X_WIDTH * 0.25)){ 
+            //  チームが同点または負けている,または
+            //  フィールドの1/4こえてる場合,ボールクリア採用 
+            super.infoManager.setSelfStrategy(strategyPlan,"show");
+	  }
+        }
+        else { //  自己の戦略の再評価
+          if(currentStrategy.equals("ballClear")
+                                              && pointDiff <= 0 && ballX < 0){ 
+            //  チームが同点または負けていて攻められている場合,ボールクリア継続
+            super.infoManager.setSelfStrategy(currentStrategy,"show");
+	  }
+        }
+
+        selfStrategy = super.infoManager.getSelfStrategy();
+
+        if(super.infoManager.isBallInPenaltyArea(10)){
+          super.player.chaseBall(100);
+          super.player.lookAtBall();
+        }
+        else {
+	  if(!super.infoManager.onThePos(super.tmpXY.getPointX(),
+                                        super.tmpXY.getPointY())){
+
+	    super.player.goToThePos(super.tmpXY.getPointX(),
+                                    super.tmpXY.getPointY(),dashPower);
+	  } else {
+	      super.player.turn(super.infoManager.getMoment(ballDir));
+	  }
+	    super.player.lookAtBall();
+        }
+      }
+    }  //  ボール情報をもっていない場合
+    else {
+      if(super.infoManager.getStrategyFlag()){ //  戦略の提示があった
+        String strategyPlan = super.infoManager.getStrategyPlan();
+        int planner = super.infoManager.getSPlanner();
+
+        if(strategyPlan.equals("ballClear") && pointDiff < 0){ 
+          //  チームが負けている場合,ボールクリア採用
+          super.infoManager.setSelfStrategy(strategyPlan,"show");
+	}
+      }
+      else { //  自己の戦略の再評価
+        if(currentStrategy.equals("ballClear") && pointDiff < 0){ 
+          //  チームが負けている場合,ボールクリア継続
+          super.infoManager.setSelfStrategy(currentStrategy,"show");
+	}
+      }
+
+      super.player.turn(45);
+    }
+
+    //  自分の持つ戦略とボール情報を流す
+    if(sayBallString || sayStrategy){
+      StringBuffer str = new StringBuffer("(");  // sprintf!!
+
+      //  ボール情報はshotの後のみ流す
+      if(sayBallString)
+        str.append(super.infoManager.getBallString());
+      if(sayBallString && sayStrategy)
+        str.append(" ");
+      //  自分の戦略をブロードキャスト
+      if(sayStrategy)
+        str.append(super.infoManager.getStrategyString());
+
+      str.append(")");
+
+      super.sayBuff = str.toString(); 
+      super.player.say(super.sayBuff);    
+    }
+
+//
+/*
+if(!currentStrategy.equals(super.infoManager.getSelfStrategy()))
+  System.out.println("[" + currentTime + "] (" + super.player.getUniformNum()
+                    + ") " + super.infoManager.getStrategyString());
+
+System.out.println("[" + currentTime + "] (" + super.player.getUniformNum()
+                    + ")  <" + super.infoManager.getStrategyCertainty() + "> "
+                    + super.infoManager.getStrategyString());
+*/
+  }
+
+/***************************************************************************/
+
+  public void beforeKickOff(){
+    if(super.infoManager.onThePos(super.startX,super.startY)){
+      if(super.infoManager.hasBallInfo()){
+        super.player.turn(super.infoManager.getBallDir());
+      } else {
+         super.player.turn(45);
+      }
+    } else {
+        super.player.move(super.startX,super.startY);
+	super.player.changeView("normal","high");
+    }
+  }
+
+/***************************************************************************/
+
+  public void ourFreeKick(){
+    boolean sayBallString = Generic.NS_FALSE;
+    boolean sayStrategy = Generic.NS_FALSE;
+    double pointDiff = super.infoManager.getOurPoint()
+	               - super.infoManager.getOpponentsPoint();
+
+    if(this.infoManager.hasBallInfo()){
+      if(!super.infoManager.needToChaseBall(1)){
+        if(!super.infoManager.onThePos(super.stdX,super.stdY)){
+          super.player.goToThePos(super.stdX,super.stdY,
+                                             Generic.STAMINA_INC_MAX);
+          super.player.lookAtBall();
+        } else {
+            super.player.turn(super.infoManager.getBallDir());
+        }
+      }
+      else if(move <= 0 && super.infoManager.isKickable()){
+        NSobject openDirNS = new NSobject();  // NS object! openDir
+        Point recXY = new Point();  // Point! recX, recY
+        Point oppXY = new Point();  // Point! recX, recY
+
+        super.infoManager.getPosOfOpponentsForward(oppXY);
+        if(oppXY.getPointX() < - Generic.FIELD_X_WIDTH * 0.25){ 
+          // 敵FWがフィールド1/4以上攻めている場合,ボールクリア提案
+          super.infoManager.setSelfStrategy("ballClear","plan");
+          sayStrategy = Generic.NS_TRUE;
+        }
+
+        double value = super.infoManager.getPosOfReceiver(0,90,35,recXY);
+        move = 5;
+
+        if(value < 1.5){  //  すこしシビアにしてみた(1.7 -> 1.5)
+          super.infoManager.getPosOfOpponentsForward(oppXY);
+          if(recXY.getPointX() > oppXY.getPointY()){
+            //  パス相手が敵FWより前方にいる場合,カウンター提案
+            super.infoManager.setSelfStrategy("counter","plan");
+            sayStrategy = Generic.NS_TRUE;
+	  }
+
+          super.player.shot(recXY.getPointX(),recXY.getPointY(),10);
+          sayBallString = Generic.NS_TRUE;
+        }
+       	else if(super.infoManager.getDirOfOpenSpace(0,30,25,2,openDirNS)
+		                                                  < 1.7){
+          super.player.shot(super.infoManager.getX() + 25
+                          * Math.cos(Generic.digToRad(openDirNS.getNS())),
+        	          super.infoManager.getY() + 25
+                          * Math.sin(Generic.digToRad(openDirNS.getNS())),10);
+          sayBallString = Generic.NS_TRUE;
+	}
+        else {
+          //  パス相手やオープンスペースがないとき.ボールクリア提案
+          super.infoManager.setSelfStrategy("ballClear","plan");
+          sayStrategy = Generic.NS_TRUE;
+          value = super.infoManager.getDirOfOpenSpace(0,70,25,2,openDirNS);
+          super.player.shot(super.infoManager.getX() + 30
+                          * Math.cos(Generic.digToRad(openDirNS.getNS())),
+        	          super.infoManager.getY() + 30
+                          * Math.sin(Generic.digToRad(openDirNS.getNS())),10);
+	                                           //  とにかく前に強く蹴れ！
+          sayBallString = Generic.NS_TRUE;
+	}
+      } else if(move == 5 && super.infoManager.isKickable()){
+	  super.player.move(super.startX,super.startY);
+	  move--;
+      } else if(super.infoManager.isKickable()){
+	  move--;
+      }
+      else{
+        super.player.chaseBall(100);
+        super.player.lookAtBall();
+      }
+    } else {
+	this.player.turn(this.infoManager.getMoment(30));
+    }
+
+    //  自分の持つ戦略とボール情報を流す
+    if(sayBallString || sayStrategy){
+      StringBuffer str = new StringBuffer("(");  // sprintf!!
+
+      //  ボール情報はshotの後のみ流す
+      if(sayBallString)
+        str.append(super.infoManager.getBallString());
+      if(sayBallString && sayStrategy)
+        str.append(" ");
+      //  自分の戦略をブロードキャスト
+      if(sayStrategy)
+        str.append(super.infoManager.getStrategyString());
+
+      str.append(")");
+
+      super.sayBuff = str.toString(); 
+      super.player.say(super.sayBuff);    
+    }
+
+/*
+System.out.println("(" + super.player.getUniformNum() + ") strategy : "
+                         + super.infoManager.getStrategyString());             
+*/
+  }
+
+/***************************************************************************/
+
+  public void ourGoalKick(){
+    boolean sayBallString = Generic.NS_FALSE;
+    boolean sayStrategy = Generic.NS_FALSE;
+
+    double dashPower = Generic.STAMINA_INC_MAX;
+    double pointDiff = super.infoManager.getOurPoint()
+	               - super.infoManager.getOpponentsPoint();
+    Point oppXY = new Point();  // Point! recX, recY
+
+    if(pointDiff < 0)
+      dashPower = Generic.STAMINA_INC_MAX * 2;
+
+    super.infoManager.getPosOfOpponentsForward(oppXY);
+    if(oppXY.getPointX() < - Generic.FIELD_X_WIDTH * 0.25){ 
+      // 敵FWがフィールド1/4以上攻めている場合,ボールクリア提案
+      super.infoManager.setSelfStrategy("ballClear","plan");
+      sayStrategy = Generic.NS_TRUE;
+    }
+
+    if(!super.infoManager.hasBallInfo()){
+      super.player.turn(45);
+    }
+    else if(super.infoManager.isKickable2()){ //  ボールを持っている
+      NSobject openDirNS = new NSobject();  // NS object! openDir
+      Point recXY = new Point();  // Point! recX, recY
+
+      if(super.infoManager.getPosOfReceiver(0,30,35,recXY) < 1.5){
+                                        //  すこしシビアにしてみた(1.7 -> 1.5)
+        if(recXY.getPointX() > oppXY.getPointX()){
+          //  パス相手が敵FWより前方にいる場合,カウンター提案
+          super.infoManager.setSelfStrategy("counter","plan");
+          sayStrategy = Generic.NS_TRUE;
+        }
+
+        super.player.shot(recXY.getPointX(),recXY.getPointY(),10);
+        sayBallString = Generic.NS_TRUE;
+        this.lastGoalKickTime = super.infoManager.getBodyTime();
+      }
+      else if(super.infoManager.getDirOfOpenSpace(0,30,25,2,openDirNS) < 1.7){
+       	super.player.shot(super.infoManager.getX() + 25 *
+                          Math.cos(Generic.digToRad(openDirNS.getNS())),
+       	                  super.infoManager.getY() + 25 * 
+                          Math.sin(Generic.digToRad(openDirNS.getNS())),10);
+        sayBallString = Generic.NS_TRUE;
+        this.lastGoalKickTime = super.infoManager.getBodyTime();
+      }
+      else {
+        //  パス相手やオープンスペースがないとき,ボールクリア提案
+        super.infoManager.setSelfStrategy("ballClear","plan");
+        sayStrategy = Generic.NS_TRUE;
+        super.infoManager.getDirOfOpenSpace(0,45,25,2,openDirNS);
+       	super.player.shot(super.infoManager.getX() + 30 *
+                          Math.cos(Generic.digToRad(openDirNS.getNS())),
+       	                  super.infoManager.getY() + 30 * 
+                          Math.sin(Generic.digToRad(openDirNS.getNS())),10);
+	                                           //  とにかく前に強く蹴れ！
+        sayBallString = Generic.NS_TRUE;
+        this.lastGoalKickTime = super.infoManager.getBodyTime();
+      }
+    }
+    else {
+      super.player.chaseBall(dashPower);
+      super.player.lookAtBall();
+    }
+
+    //  自分の持つ戦略とボール情報を流す
+    if(sayBallString || sayStrategy){
+      StringBuffer str = new StringBuffer("(");  // sprintf!!
+
+      //  ボール情報はshotの後のみ流す
+      if(sayBallString)
+        str.append(super.infoManager.getBallString());
+      if(sayBallString && sayStrategy)
+        str.append(" ");
+      //  自分の戦略をブロードキャスト
+      if(sayStrategy)
+        str.append(super.infoManager.getStrategyString());
+
+      str.append(")");
+
+      super.sayBuff = str.toString(); 
+      super.player.say(super.sayBuff);    
+    }
+
+//
+/*
+System.out.println("(" + super.player.getUniformNum() + ") strategy : "
+                         + super.infoManager.getStrategyString());             
+*/
+  }
+
+/***************************************************************************/
+
+  public void ourCornerKick(){
+    double dashPower = Generic.STAMINA_INC_MAX;
+    double pointDiff = super.infoManager.getOurPoint()
+	               - super.infoManager.getOpponentsPoint();
+
+    if(pointDiff < 0)
+       dashPower = Generic.STAMINA_INC_MAX * 2;
+
+    if(super.infoManager.hasBallInfo()){
+      double ballX = super.infoManager.getBallX();
+      if(ballX < -15)
+        dashPower = Generic.STAMINA_INC_MAX * 2;
+
+      if(!super.infoManager.onThePos(super.stdX,super.stdY)){
+        super.player.goToThePos(super.stdX,super.stdY,dashPower);
+      }
+      super.player.lookAtBall();
+    } else {
+	super.player.turn(45);
+    }
+  }
+
+/***************************************************************************/
+
+  public void ourKickIn(){
+    double dashPower = Generic.STAMINA_INC_MAX;
+    double pointDiff = super.infoManager.getOurPoint()
+	               - super.infoManager.getOpponentsPoint();
+
+    if(pointDiff < 0)
+      dashPower = Generic.STAMINA_INC_MAX * 2;
+
+    if(super.infoManager.hasBallInfo()){
+      double ballX = super.infoManager.getBallX();
+      if(ballX < -15)
+        dashPower = Generic.STAMINA_INC_MAX * 2;
+
+      if(!super.infoManager.onThePos(super.stdX,super.stdY)){
+        super.player.goToThePos(super.stdX,super.stdY,dashPower);
+      }
+      super.player.lookAtBall();
+    } else {
+	super.player.turn(45);
+    }
+  }
+
+/***************************************************************************/
+
+  public void opponentsFreeKick(){
+    double dashPower = Generic.STAMINA_INC_MAX;
+    double pointDiff = super.infoManager.getOurPoint()
+	               - super.infoManager.getOpponentsPoint();
+
+    if(pointDiff < 0)
+      dashPower = Generic.STAMINA_INC_MAX * 2;
+
+    if(super.infoManager.hasBallInfo()){
+      double ballX = super.infoManager.getBallX();
+      if(ballX < -15)
+        dashPower = Generic.STAMINA_INC_MAX * 2;
+
+      if(!super.infoManager.onThePos(super.stdX,super.stdY)){
+        super.player.goToThePos(super.stdX,super.stdY,dashPower);
+      }
+      super.player.lookAtBall();
+    } else {
+	super.player.turn(45);
+    }
+  }
+
+/***************************************************************************/
+
+  public void opponentsGoalKick(){
+    double dashPower = Generic.STAMINA_INC_MAX;
+    double pointDiff = super.infoManager.getOurPoint()
+	               - super.infoManager.getOpponentsPoint();
+
+    if(pointDiff < 0)
+      dashPower = Generic.STAMINA_INC_MAX * 2;
+
+    if(super.infoManager.hasBallInfo()){
+      double ballX = super.infoManager.getBallX();
+      if(ballX < -15)
+        dashPower = Generic.STAMINA_INC_MAX * 2;
+
+      if(!super.infoManager.onThePos(super.stdX,super.stdY)){
+        super.player.goToThePos(super.stdX,super.stdY,dashPower);
+      }
+      super.player.lookAtBall();
+    } else {
+	super.player.turn(45);
+    }
+  }
+
+/***************************************************************************/
+
+  public void opponentsCornerKick(){
+    double dashPower = Generic.STAMINA_INC_MAX;
+    double pointDiff = super.infoManager.getOurPoint()
+	               - super.infoManager.getOpponentsPoint();
+
+    if(pointDiff < 0)
+      dashPower = Generic.STAMINA_INC_MAX * 2;
+
+    if(super.infoManager.hasBallInfo()){
+      double ballX = super.infoManager.getBallX();
+      if(ballX < -15)
+        dashPower = Generic.STAMINA_INC_MAX * 2;
+
+      if(!super.infoManager.onThePos(super.stdX,super.stdY)){
+        super.player.goToThePos(super.stdX,super.stdY,dashPower);
+      }
+      super.player.lookAtBall();
+    } else {
+	super.player.turn(45);
+    }
+  }
+
+/***************************************************************************/
+
+  public void opponentsKickIn(){
+    double dashPower = Generic.STAMINA_INC_MAX;
+    double pointDiff = super.infoManager.getOurPoint()
+	               - super.infoManager.getOpponentsPoint();
+
+    if(pointDiff < 0)
+      dashPower = Generic.STAMINA_INC_MAX * 2;
+
+    if(super.infoManager.hasBallInfo()){
+      double ballX = super.infoManager.getBallX();
+      if(ballX < -15)
+        dashPower = Generic.STAMINA_INC_MAX * 2;
+
+      if(!super.infoManager.onThePos(super.stdX,super.stdY)){
+        super.player.goToThePos(super.stdX,super.stdY,dashPower);
+      }
+      super.player.lookAtBall();
+    } else {
+	super.player.turn(45);
+    }
+  }
+
+/***************************************************************************/
+
+  public void opponentsKickOff(){
+    if(super.infoManager.onThePos(super.startX,super.startY)){
+      if(super.infoManager.hasBallInfo()){
+        super.player.turn(super.infoManager.getBallDir());
+      } else {
+          super.player.turn(45);
+	}
+    } else {
+	super.player.move(super.startX,super.startY);
+	super.player.changeView("normal","high");
+    }
+  }
+
+/***************************************************************************/
+
+  public void ourGoal(){
+    if(super.infoManager.onThePos(super.startX,super.startY)){
+      if(super.infoManager.hasBallInfo()){
+        super.player.turn(super.infoManager.getBallDir());
+      } else {
+         super.player.turn(45);
+      }
+    } else {
+	super.player.move(super.startX,super.startY);
+	super.player.changeView("normal","high");
+    }
+  }
+
+/***************************************************************************/
+
+  public void opponentsGoal(){
+    if(super.infoManager.onThePos(super.startX,super.startY)){
+      if(super.infoManager.hasBallInfo()){
+        super.player.turn(super.infoManager.getBallDir());
+      } else {
+          super.player.turn(45);
+      }
+    } else {
+	super.player.move(super.startX,super.startY);
+	super.player.changeView("normal","high");
+    }
+  }
+
+}

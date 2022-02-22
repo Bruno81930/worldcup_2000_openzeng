@@ -1,0 +1,10 @@
+FreeBSD version 3, Linuxの2つのBinaryを用意しました．
+どちらもstatic compileしてあります．
+
+起動方法は，
+ディレクトリに移動して
+./start.yukichi serverhost
+でOKです．
+詳しくは，scriptを見てください．
+
+なお, test versionなのでstaminaを考慮していません

@@ -1,0 +1,20 @@
+; gmc GtkItemFactory rc-file         -*- scheme -*-
+; this file is an automated menu-path dump
+;
+;(menu-path "<gmc>/-Orphan/Arrange Icons/By Name" "")
+;(menu-path "<gmc>/-Orphan/New/Launcher..." "")
+;(menu-path "<gmc>/-Orphan/New/URL Link..." "")
+;(menu-path "<gmc>/-Orphan/Arrange Icons/By Time Last Accessed" "")
+;(menu-path "<gmc>/-Orphan/Arrange Icons/By Time Last Modified" "")
+;(menu-path "<gmc>/-Orphan/Configure Background Image" "")
+;(menu-path "<gmc>/-Orphan/Rescan Devices" "")
+;(menu-path "<gmc>/-Orphan/Recreate Default Icons" "")
+;(menu-path "<gmc>/-Orphan/New/Terminal" "")
+;(menu-path "<gmc>/-Orphan/Arrange Icons/By File Type" "")
+;(menu-path "<gmc>/-Orphan/Create New Window" "")
+;(menu-path "<gmc>/-Orphan/Rescan Desktop Directory" "")
+;(menu-path "<gmc>/-Orphan/Arrange Icons" "")
+;(menu-path "<gmc>/-Orphan/Arrange Icons/By Time Last Changed" "")
+;(menu-path "<gmc>/-Orphan/New" "")
+;(menu-path "<gmc>/-Orphan/Arrange Icons/By Size" "")
+;(menu-path "<gmc>/-Orphan/New/Directory..." "")

@@ -1,0 +1,19 @@
+
+README for Linux ICAT jdaemon                                      05.22.2000
+-----------------------------------------------------------------------------
+
+  Make sure java is installed and your $CLASSPATH contains the appropriate 
+IBM JDK jar files (for some reason, tools.jar must be explicitly listed in 
+order to get JPDA to work.)  Add jprobe2.zip from this package to the 
+classpath, and invoke jdaemon with a port number:
+
+  $ jdaemon 2525
+
+  Optionally, you may append '-d' to obtain some potentially useful debug
+statements if you're having problems.  (Note that non-root users typically
+cannot open ports below 1024, so you must use a higher number, as shown
+above.)
+
+You may then connect to the daemon with ICAT.  Please see the host-side 
+documentation for further information.
+
